@@ -1,0 +1,16 @@
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 50px auto;
+}
+.search-btn {
+  width: 40px;
+  height: 35px;
+}
+.search-field {
+  margin-right: 2px;
+  width: 300px;
+  height: 35px;
+  border-radius: 20px;
+}
