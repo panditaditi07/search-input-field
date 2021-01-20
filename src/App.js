@@ -8,7 +8,7 @@ import SearchBar from "./components/SearchBar";
 
 class App extends Component {
   state = {
-    searchField: "",
+    // searchField: "",
     searchData: "",
   };
 
@@ -35,6 +35,7 @@ class App extends Component {
             data={searchData}
             placeholder="Search here..."
             icons="left"
+            searchkey="name"
           />
         </div>
       </>

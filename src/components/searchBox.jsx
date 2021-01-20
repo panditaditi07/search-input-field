@@ -14,11 +14,14 @@ class SearchBox extends Component {
   };
   searchKey = () => {
     return this.props.data.filter((val) =>
-      val.name.toLowerCase().includes(this.state.searchField.toLowerCase())
+      val[this.props.searchkey]
+        .toLowerCase()
+        .includes(this.state.searchField.toLowerCase())
     );
   };
   render() {
-    console.log(this.props);
+    // console.log(this.props);
+    // console.log(this.props.searchkey);
 
     return (
       <>
@@ -28,9 +31,8 @@ class SearchBox extends Component {
               type="search"
               className={styles["search-field"]}
               placeholder={this.props.placeholder}
-              // searchKey={this.searchKey(this.props.searchKey)}
+              // searchKey={this.props.searchKey}
               onChange={this.handleChange}
-              // value={this.props.value}
             />
             <NamesContainer names={this.searchKey(this.props.value)} />
           </div>

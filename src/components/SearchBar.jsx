@@ -16,15 +16,23 @@ class SearchBar extends Component {
               return (
                 <div className={styles["main-container"]}>
                   <div>
+                    {/* <i>
+                      <FontAwesomeIcon
+                        icon={faSearch}
+                        className={styles["search-btn"]}
+                      />
+                    </i> */}
                     <button type="submit" className={styles["search-btn"]}>
                       <FontAwesomeIcon icon={faSearch} />
                     </button>
                   </div>
+
                   <div>
                     {" "}
                     <SearchBox
                       data={this.props.data}
                       placeholder={this.props.placeholder}
+                      searchkey={this.props.searchkey}
                     />
                   </div>
                 </div>
@@ -36,9 +44,16 @@ class SearchBar extends Component {
                     <SearchBox
                       data={this.props.data}
                       placeholder={this.props.placeholder}
+                      searchkey={this.props.searchkey}
                     />
                   </div>
                   <div>
+                    {/* <i>
+                      <FontAwesomeIcon
+                        icon={faSearch}
+                        className={styles["search-btn"]}
+                      />
+                    </i> */}
                     <button type="submit" className={styles["search-btn"]}>
                       <FontAwesomeIcon icon={faSearch} />
                     </button>
@@ -52,9 +67,16 @@ class SearchBar extends Component {
                     <SearchBox
                       data={this.props.data}
                       placeholder={this.props.placeholder}
+                      searchkey={this.props.searchkey}
                     />
                   </div>
                   <div>
+                    {/* <i>
+                      <FontAwesomeIcon
+                        icon={faSearch}
+                        className={styles["search-btn"]}
+                      />
+                    </i> */}
                     <button type="submit" className={styles["search-btn"]}>
                       <FontAwesomeIcon icon={faSearch} />
                     </button>
