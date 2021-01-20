@@ -1,13 +1,11 @@
 .main-container {
   display: flex;
   flex-direction: row;
-  //   border: 1px solid red;
+  // border: 1px solid red;
   justify-content: center;
   margin: 50px auto;
 }
-i {
-  position: "absolute";
-}
+
 .search-btn {
   width: 40px;
   height: 35px;
@@ -17,6 +15,7 @@ i {
   // text-align: left;
   // color: rgb(49, 0, 128);
   // background-color: transparent;
+  outline: none;
 }
 .search-field {
   //   margin-right: 2px;
