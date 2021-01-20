@@ -1,8 +1,9 @@
 import { Component } from "react";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faSearch } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./searchBox.module.scss";
 import NamesContainer from "../components/namesContainer";
+
 class SearchBox extends Component {
   state = {
     searchField: "",
@@ -18,11 +19,10 @@ class SearchBox extends Component {
   };
   render() {
     console.log(this.props);
-    console(this.searchKey(this.props.searchKey));
 
     return (
       <>
-        <div className={styles["main-container"]}>
+        <div>
           <div>
             <input
               type="search"
@@ -30,12 +30,13 @@ class SearchBox extends Component {
               placeholder={this.props.placeholder}
               // searchKey={this.searchKey(this.props.searchKey)}
               onChange={this.handleChange}
+              // value={this.props.value}
             />
-            <NamesContainer names={this.searchKey()} />
+            <NamesContainer names={this.searchKey(this.props.value)} />
           </div>
-          <button type="submit" className={styles["search-btn"]}>
+          {/* <button type="submit" className={styles["search-btn"]}>
             <FontAwesomeIcon icon={faSearch} />
-          </button>
+          </button> */}
         </div>
       </>
     );
