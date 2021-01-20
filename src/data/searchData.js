@@ -17,5 +17,23 @@ export const searchData = [
   },
 ];
 
-    
-    
+// export const searchData = [
+//   {
+//     id: "1",
+//     name: [
+//       {
+//         firstName: "Aditi",
+//         lastName: "Pandit",
+//       },
+//     ],
+//   },
+//   {
+//     id: "2",
+//     name: [
+//       {
+//         firstName: "Abhay",
+//         lastName: "Tank",
+//       },
+//     ],
+//   },
+// ];

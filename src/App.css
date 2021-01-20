@@ -1,3 +1,11 @@
+* {
+  background-color: linear-gradient(
+    to bottom right,
+    #274b74 0%,
+    #8233c5 50%,
+    #e963fd 100%
+  );
+}
 .App {
   text-align: center;
 }
