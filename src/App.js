@@ -19,7 +19,7 @@ class App extends Component {
           <SearchBar
             data={searchData}
             placeholder="Search here"
-            icons="left"
+            icons="right"
             searchkey="name"
           />
         </div>

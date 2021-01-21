@@ -20,7 +20,7 @@ class SearchBar extends Component {
                     data={this.props.data}
                     placeholder={this.props.placeholder}
                     searchkey={this.props.searchkey}
-                    className="search-field-left"
+                    className={this.props.icons}
                   />
                 </div>
               );
@@ -31,7 +31,7 @@ class SearchBar extends Component {
                     data={this.props.data}
                     placeholder={this.props.placeholder}
                     searchkey={this.props.searchkey}
-                    className="search-field-right"
+                    className={this.props.icons}
                   />
                 </div>
               );
