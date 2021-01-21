@@ -22,7 +22,9 @@ class SearchBox extends Component {
   };
   render() {
     console.log(this.props);
-
+    /**
+     * this will render the searchBar component
+     */
     return (
       <>
         <div>

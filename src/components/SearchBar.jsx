@@ -6,6 +6,11 @@ import SearchBox from "./searchBox";
 import style from "./searchBar.module.scss";
 // import searchData from "../data/jsonData";
 
+/**
+ * According to the user Input the required case selected.
+ * if icon = left then then search bar will on left and vice versa
+ */
+
 class SearchBar extends Component {
   render() {
     const icons = this.props.icons;
@@ -17,6 +22,10 @@ class SearchBar extends Component {
               return (
                 <div className={style["main-container"]}>
                   <SearchBox
+                    /**
+                     * Data is used as props which is send from SearchBar
+                     * Similar for other proptypes
+                     */
                     data={this.props.data}
                     placeholder={this.props.placeholder}
                     searchkey={this.props.searchkey}
@@ -35,6 +44,9 @@ class SearchBar extends Component {
                   />
                 </div>
               );
+            /**
+             * default is set to icon = right
+             */
             default:
               return (
                 <div className={style["main-container"]}>

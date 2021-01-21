@@ -10,7 +10,7 @@ class App extends Component {
   };
 
   /**
-   *
+   * Use serachBar component to get the SearchInput
    */
   render() {
     return (
