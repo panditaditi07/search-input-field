@@ -1,19 +1,19 @@
 export const searchData = [
   {
     id: "1",
-    name: "Aditi",
+    name: "",
   },
   {
     id: "2",
-    name: "Clive",
+    name: "",
   },
   {
     id: "3",
-    name: "Talib",
+    name: "",
   },
   {
     id: "4",
-    name: "Abhay",
+    name: "",
   },
 ];
 

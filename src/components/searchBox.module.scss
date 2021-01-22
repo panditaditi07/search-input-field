@@ -3,50 +3,56 @@
 }
 
 $font: "Josefin Sans", sans-serif;
-$button-color: #8233c5;
 $height: 40px;
+$width: 250px;
+$textColor: black;
+$textBackground: white;
 
-.main-container {
+.container {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin: 200px auto;
-  // border: 1px solid red;
-}
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  // border: 1px solid red;
-  width: 500px;
 }
 
-.search-btn-right {
-  position: relative;
-  width: 60px;
-  height: $height;
-  background: $button-color;
-  border: none;
-  border-radius: 10px;
-  outline: none;
+.left {
+  flex-direction: row-reverse;
+}
+.right {
+  flex-direction: row;
+}
+
+.button {
+  background: white;
+  cursor: pointer;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+}
+.button:hover {
+  background: black;
+  color: white;
+}
+.icon {
+  margin: 9px;
+  font-size: 15px;
 }
 
 .search-field {
-  width: 300px;
-  border: 2px solid $button-color;
+  width: $width;
   font-size: 20px;
   height: $height;
-  padding: 10px;
-  color: black;
-  border-radius: 10px;
+  color: $textColor;
   font-family: $font;
-  background: white;
+  border: 2px solid white;
+  background-color: $textBackground;
+  padding: 10px;
 }
 
-input[type="search"]:focus {
+input[type="text"]:focus {
+  outline: none;
+}
+button[type="submit"]:focus {
   outline: none;
 }
 @media (max-width: 450px) {

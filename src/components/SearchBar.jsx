@@ -1,5 +1,5 @@
 import { Component } from "react";
-import SearchBox from "./searchBox";
+// import SearchBox from "./searchBox";
 // import { faSearch } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import styles from "./searchBox.module.scss";
@@ -11,60 +11,61 @@ import style from "./searchBar.module.scss";
  * if icon = left then then search bar will on left and vice versa
  */
 
-class SearchBar extends Component {
-  render() {
-    const icons = this.props.icons;
-    return (
-      <>
-        {(() => {
-          switch (icons) {
-            case "left":
-              return (
-                <div className={style["main-container"]}>
-                  <SearchBox
-                    /**
-                     * Data is used as props which is send from SearchBar
-                     * Similar for other proptypes
-                     */
-                    data={this.props.data}
-                    placeholder={this.props.placeholder}
-                    searchkey={this.props.searchkey}
-                    className={this.props.icons}
-                  />
-                </div>
-              );
-            case "right":
-              return (
-                <div className={style["main-container"]}>
-                  <SearchBox
-                    data={this.props.data}
-                    placeholder={this.props.placeholder}
-                    searchkey={this.props.searchkey}
-                    className={this.props.icons}
-                  />
-                </div>
-              );
-            /**
-             * default is set to icon = right
-             */
-            default:
-              return (
-                <div className={style["main-container"]}>
-                  <SearchBox
-                    data={this.props.data}
-                    placeholder={this.props.placeholder}
-                    searchkey={this.props.searchkey}
-                    className="search-field-right"
-                  />
-                </div>
-              );
-          }
-        })()}
-      </>
-    );
-  }
-}
-export default SearchBar;
+// class SearchBar extends Component {
+//   render() {
+//     const icons = this.props.icons;
+//     return (
+//       <>
+//         {(() => {
+//           switch (icons) {
+//             case "left":
+//               return (
+//                 <div className={style["main-container"]}>
+//                   <SearchBox
+//                     /**
+//                      * Data is used as props which is send from SearchBar
+//                      * Similar for other proptypes
+//                      */
+//                     data={this.props.data}
+//                     placeholder={this.props.placeholder}
+//                     searchkey={this.props.searchkey}
+//                     className={this.props.icons}
+//                     onChange={this.props.onChange}
+//                   />
+//                 </div>
+//               );
+//             case "right":
+//               return (
+//                 <div className={style["main-container"]}>
+//                   <SearchBox
+//                     data={this.props.data}
+//                     placeholder={this.props.placeholder}
+//                     searchkey={this.props.searchkey}
+//                     className={this.props.icons}
+//                   />
+//                 </div>
+//               );
+//             /**
+//              * default is set to icon = right
+//              */
+//             default:
+//               return (
+//                 <div className={style["main-container"]}>
+//                   <SearchBox
+//                     data={this.props.data}
+//                     placeholder={this.props.placeholder}
+//                     searchkey={this.props.searchkey}
+//                     className="search-field-right"
+//                   />
+//                 </div>
+//               );
+//           }
+//         })()}
+//       </>
+//     );
+//   }
+// }
+// export default SearchBar;
 
 // class SearchBar extends Component {
 //   render() {
