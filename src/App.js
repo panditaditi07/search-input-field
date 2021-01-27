@@ -2,9 +2,8 @@ import { Component } from "react";
 import "./App.scss";
 import { searchData } from "./data/searchData";
 // import searchData from "./data/jsonData.json";
-// import SearchBar from "./components/SearchBar";
+
 import SearchBox from "./components/searchBox";
-// import NamesContainer from "./components/namesContainer";
 
 class App extends Component {
   state = {
@@ -24,7 +23,7 @@ class App extends Component {
             data={searchData}
             placeholder="Search here"
             iconPosition="right"
-            className="searchInput"
+            // className="searchInput"
             searchkey="name"
             searchkeys={["name", "description"]}
             result={this.getResult}
