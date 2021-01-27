@@ -2,18 +2,30 @@
   box-sizing: border-box;
 }
 
-$font: "Josefin Sans", sans-serif;
 $height: 40px;
 $width: 250px;
 $textColor: black;
-$textBackground: white;
+$Background: white;
 
 .container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 200px auto;
+  .button {
+    background: white;
+    cursor: pointer;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  .button:hover {
+    background: black;
+    color: white;
+  }
+  .icon {
+    margin: 9px;
+    font-size: 15px;
+  }
 }
 
 .left {
@@ -23,38 +35,34 @@ $textBackground: white;
   flex-direction: row;
 }
 
-.button {
-  background: white;
-  cursor: pointer;
-  border: 2px solid white;
-  transition: all 0.3s ease;
-}
-.button:hover {
-  background: black;
-  color: white;
-}
-.icon {
-  margin: 9px;
-  font-size: 15px;
+.defaultInput {
+  background-color: white;
+  border: 1px solid black;
 }
 
 .search-field {
-  width: $width;
-  font-size: 20px;
-  height: $height;
-  color: $textColor;
-  font-family: $font;
-  border: 2px solid white;
-  background-color: $textBackground;
+  all: inherit;
+  height: 100%;
+  width: 100%;
+  outline: none;
+  font-size: inherit;
   padding: 10px;
+  border-radius: unset;
+  text-align: initial;
+  background-color: white;
+  .button {
+    background: white;
+    cursor: pointer;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  .button:hover {
+    background: black;
+    color: white;
+  }
 }
 
-input[type="text"]:focus {
-  outline: none;
-}
-button[type="submit"]:focus {
-  outline: none;
-}
 @media (max-width: 450px) {
   .container {
     width: 400px;
@@ -184,3 +192,14 @@ button[type="submit"]:focus {
     width: 6px;
   }
 }
+
+// .search-field {
+//   width: 250px;
+//   font-size: 20px;
+//   height: 40px;
+//   color: $textColor;
+//   font-family: $font;
+//   border: 2px solid white;
+//   background-color: $Background;
+//   padding: 10px;
+// }

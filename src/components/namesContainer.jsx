@@ -5,7 +5,12 @@ class NamesContainer extends Component {
     return (
       <div>
         {this.props.names.map((val) => {
-          return <p key={val.id}>{val.name}</p>;
+          return (
+            <>
+              <p key={val.id}>{val.name}</p>
+              <p>{val.description}</p>
+            </>
+          );
         })}
       </div>
     );

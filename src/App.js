@@ -1,28 +1,33 @@
 import { Component } from "react";
-import "./App.css";
+import "./App.scss";
 import { searchData } from "./data/searchData";
 // import searchData from "./data/jsonData.json";
 // import SearchBar from "./components/SearchBar";
 import SearchBox from "./components/searchBox";
+// import NamesContainer from "./components/namesContainer";
 
 class App extends Component {
   state = {
     searchData: "",
   };
-
+  getResult = (result) => {
+    console.log(result);
+  };
   /**
-   * Use serachBar component to get the SearchInput
+   * Use searchBar component to get the SearchInput
    */
   render() {
-    console.log(searchData);
     return (
       <>
         <div className="App">
           <SearchBox
             data={searchData}
             placeholder="Search here"
-            iconDirection="left"
+            iconPosition="right"
+            className="searchInput"
             searchkey="name"
+            searchkeys={["name", "description"]}
+            result={this.getResult}
             onChange={(value) => {
               console.log("res", value);
             }}

@@ -3,78 +3,90 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./searchBox.module.scss";
 import propTypes from "prop-types";
-import NamesContainer from "../components/namesContainer";
 
 class SearchBox extends Component {
   state = {
     searchField: "",
   };
 
+  // searchKey = () => {
+  //   const resultData = this.props.data.filter((val) => {
+  //     return val[this.props.searchkey]
+  //       .toLowerCase()
+  //       .includes(this.state.searchField.toLowerCase());
+  //   });
+  //   this.props.result(resultData);
+  // };
   handleChange = (event) => {
     this.setState({ searchField: event.target.value });
     this.props.onChange(this.state.searchField);
+    this.searchKey();
   };
 
   // searchKey = () => {
-  //   return this.props.data.filter((val) =>
-  //     val[this.props.searchkey]
-  //       .toLowerCase()
-  //       .includes(this.state.searchField.toLowerCase())
-  //   );
+  //   if (this.props.searchkey === "undefined") {
+  //     return "";
+  //   } else {
+  //     const resultData = this.props.data.filter((val) =>
+  //       val[this.props.searchkey]
+  //         .toLowerCase()
+  //         .includes(this.state.searchField.toLowerCase())
+  //     );
+  //     this.props.result(resultData);
+  //   }
   // };
 
   searchKey = () => {
     if (this.props.searchkey === "undefined") {
-      return this.props.data.filter((val) =>
-        val[this.props.searchkey]
-          .toLowerCase()
-          .includes(this.state.searchField.toLowerCase())
-      );
+      return "";
     }
-    return this.props.data.filter((val) =>
-      val[this.props.searchkey]
-        .toLowerCase()
-        .includes(this.state.searchField.toLowerCase())
-    );
+    const resultData = this.props.data.filter((val) => {
+      const keys = Object.keys(val);
+      return this.props.searchkeys.some((searchkey) => {
+        return keys.includes(searchkey)
+          ? val[searchkey].includes(this.state.searchField)
+          : false;
+      });
+    });
+    this.props.result(resultData);
   };
 
   render() {
-    console.log(this.props);
     /**
      * this will render the searchBar component
      */
 
-    let { className, iconDirection } = this.props;
+    let { className, iconPosition } = this.props;
+
     return (
       <>
         <div
           className={`${styles["container"]} ${
-            styles[this.props.iconDirection]
-          } ${className ? className : styles["container"]} ${iconDirection}`}
+            styles[this.props.iconPosition]
+          } ${className ? className : styles["defaultInput"]} ${iconPosition}`}
         >
           <input
             type="text"
             className={styles["search-field"]}
             placeholder={this.props.placeholder}
-            searchkey={this.props.searchkey}
             onChange={this.handleChange}
           />
+
           <button type="submit" className={styles["button"]}>
             <FontAwesomeIcon icon={faSearch} className={styles["icon"]} />
           </button>
         </div>
-
-        <NamesContainer names={this.searchKey()} />
+        <div>{/* <NamesContainer names={this.searchKey()} /> */}</div>
       </>
     );
   }
 }
 SearchBox.propTypes = {
   dataList: propTypes.array,
-  searchkey: propTypes.string.isRequired,
+  searchkeys: propTypes.arrayOf(propTypes.string),
   className: propTypes.string,
   placeholder: propTypes.string,
-  iconDirection: propTypes.oneOf(["left", "right"]),
+  iconPosition: propTypes.oneOf(["left", "right"]),
 };
 
 export default SearchBox;

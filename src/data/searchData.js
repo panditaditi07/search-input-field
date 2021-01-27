@@ -1,21 +1,44 @@
 export const searchData = [
   {
     id: "1",
-    name: "",
+    name: "Aditi",
+    description: "Some description",
   },
   {
     id: "2",
-    name: "",
+    name: "Abhay",
+    description: "Some description",
   },
   {
     id: "3",
-    name: "",
+    name: "Clive",
+    description: "Some description",
   },
   {
     id: "4",
-    name: "",
+    name: "Talib",
+    description: "Some description",
   },
 ];
+
+// export const searchData = [
+//   {
+//     id: "1",
+//     name: "Aditi",
+//   },
+//   {
+//     id: "2",
+//     name: "Abhay",
+//   },
+//   {
+//     id: "3",
+//     name: "Clive",
+//   },
+//   {
+//     id: "4",
+//     name: "Talib",
+//   },
+// ];
 
 // export const searchData = [
 //   {
