@@ -22,34 +22,37 @@ class SearchBox extends Component {
     this.props.onChange(this.state.searchField);
     this.searchKey();
   };
-
-  // searchKey = () => {
-  //   if (this.props.searchkey === "undefined") {
-  //     return "";
-  //   } else {
-  //     const resultData = this.props.data.filter((val) =>
-  //       val[this.props.searchkey]
-  //         .toLowerCase()
-  //         .includes(this.state.searchField.toLowerCase())
-  //     );
-  //     this.props.result(resultData);
-  //   }
-  // };
-
+  /**
+   * checks if the key is undefined and returns empty array.
+   * if the key has value then it console.log the searched value
+   */
   searchKey = () => {
     if (this.props.searchkey === "undefined") {
       return "";
+    } else {
+      const resultData = this.props.data.filter((val) =>
+        val[this.props.searchkey]
+          .toLowerCase()
+          .includes(this.state.searchField.toLowerCase())
+      );
+      this.props.result(resultData);
     }
-    const resultData = this.props.data.filter((val) => {
-      const keys = Object.keys(val);
-      return this.props.searchkeys.some((searchkey) => {
-        return keys.includes(searchkey)
-          ? val[searchkey].includes(this.state.searchField)
-          : false;
-      });
-    });
-    this.props.result(resultData);
   };
+
+  // searchKey = () => {
+  //   if (this.props.searchkeys === "undefined") {
+  //     return "";
+  //   }
+  //   const resultData = this.props.data.filter((val) => {
+  //     const keys = Object.keys(val);
+  //     return this.props.searchkeys.some((searchkey) => {
+  //       return keys.includes(searchkey)
+  //         ? val[searchkey].includes(this.state.searchField)
+  //         : false;
+  //     });
+  //   });
+  //   this.props.result(resultData);
+  // };
 
   render() {
     /**
@@ -83,6 +86,7 @@ class SearchBox extends Component {
 }
 SearchBox.propTypes = {
   dataList: propTypes.array,
+  searchkey: propTypes.string,
   searchkeys: propTypes.arrayOf(propTypes.string),
   className: propTypes.string,
   placeholder: propTypes.string,
