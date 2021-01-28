@@ -1,8 +1,8 @@
 # Dynamic SearchBox
 
-### SearchBox Component:
+# This searchBox is a dynamic Search Bar component used to search Data according to the user's Input.
 
-This searchBox is a dynamic Search Bar component used to search Data according to the user's Input.
+### SearchBox Component:
 
 ```js
 <SearchBox
