@@ -24,4 +24,5 @@
 - ### `iconPosition` - it defines the icon position. Must be left/right. Default `right`
 - ### `className` - className must string. Default `""`
 - ### `searchkeys` - The array of object keys.This prop is required.
-- ### `result` - This will print the data that is searched.
+- ### `result` - Callback function will print the data that is searched.
+- ### `onChange` - A function which acts as a callback when the input value is changed.
