@@ -9,64 +9,16 @@ class SearchBox extends Component {
     searchField: "",
   };
 
-  // searchKey = () => {
-  //   const resultData = this.props.data.filter((val) => {
-  //     return val[this.props.searchkey]
-  //       .toLowerCase()
-  //       .includes(this.state.searchField.toLowerCase());
-  //   });
-  //   this.props.result(resultData);
-  // };
   handleChange = (event) => {
     this.setState({ searchField: event.target.value });
     this.props.onChange(this.state.searchField);
     this.searchKeys();
   };
+
   /**
-   * checks if the key is undefined and returns empty array.
-   * if the key has value then it console.log the searched value
+   * searchkeys returns the array of objects as output
+   *
    */
-  // searchKey = () => {
-  //   if (this.props.searchkey === "undefined") {
-  //     return "";
-  //   } else {
-  //     const resultData = this.props.data.filter((val) =>
-  //       val[this.props.searchkey]
-  //         .toLowerCase()
-  //         .includes(this.state.searchField.toLowerCase())
-  //     );
-  //     this.props.result(resultData);
-  //   }
-  // };
-
-  // searchKeys = () => {
-  //   const searchkeys = this.props.searchkeys;
-  //   let resultData = [];
-  //   let result = {};
-  //   searchkeys.forEach((searchkey) => {
-  //     result["data"] = [];
-  //   });
-
-  //   this.props.data.forEach((getData) => {
-  //     for (let skIndex = 0; skIndex < searchkeys.length; skIndex++) {
-  //       const key = searchkeys[skIndex];
-  //       if (getData[key]) {
-  //         if (
-  //           getData[key]
-  //             .toLowerCase()
-  //             .includes(this.state.searchField.toLowerCase())
-  //         ) {
-  //           result["data"].push(getData);
-  //         }
-  //       }
-  //     }
-  //   });
-  //   searchkeys.forEach((searchkey) => {
-  //     resultData.push(...result["data"]);
-  //   });
-
-  //   this.props.result(resultData);
-  // };
   searchKeys = () => {
     let data = this.props.data;
     let result = [];
@@ -92,36 +44,51 @@ class SearchBox extends Component {
      * this will render the searchBar component
      */
 
-    let { className, iconPosition } = this.props;
+    let { className, iconPosition, placeholder } = this.props;
 
     return (
       <>
         <div
-          className={`${styles["container"]} ${
-            styles[this.props.iconPosition]
-          } ${className ? className : styles["defaultInput"]} ${iconPosition}`}
+          className={`${styles["container"]} ${styles[iconPosition]} ${
+            className ? className : styles["default"]
+          } ${iconPosition}`}
         >
-          <input
-            type="text"
-            className={styles["search-field"]}
-            placeholder={this.props.placeholder}
-            onChange={this.handleChange}
-          />
-
-          {/* <button type="submit" className={styles["button"]}> */}
-          <FontAwesomeIcon icon={faSearch} className={styles["icon"]} />
-          {/* </button> */}
+          <form>
+            <input
+              type="text"
+              className={styles["search-field"]}
+              placeholder={placeholder}
+              onChange={this.handleChange}
+            />
+          </form>
+          <button type="submit" className={styles["button"]}>
+            <FontAwesomeIcon icon={faSearch} className={styles["icon"]} />
+          </button>
         </div>
       </>
     );
   }
 }
 SearchBox.propTypes = {
-  dataList: propTypes.array,
-  searchkey: propTypes.string,
+  /**
+   *  must be array of objects
+   */
+  data: propTypes.array,
+  /**
+   * must be array of object keys
+   */
   searchkeys: propTypes.arrayOf(propTypes.string),
+  /**
+   * must be a string (searchInput)
+   */
   className: propTypes.string,
+  /**
+   * must be a string
+   */
   placeholder: propTypes.string,
+  /**
+   * must be a string and must have value left/right
+   */
   iconPosition: propTypes.oneOf(["left", "right"]),
 };
 

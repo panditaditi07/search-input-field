@@ -13,7 +13,7 @@ class App extends Component {
     console.log(result);
   };
   /**
-   * Use searchBar component to get the SearchInput
+   * Use searchBar component to Search the data
    */
   render() {
     return (
@@ -23,8 +23,7 @@ class App extends Component {
             data={searchData}
             placeholder="Search here"
             iconPosition="right"
-            // className="searchInput"
-            searchkey="name"
+            className="searchInput"
             searchkeys={["name", "description"]}
             result={this.getResult}
             onChange={(value) => {

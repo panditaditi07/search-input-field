@@ -35,7 +35,7 @@ $Background: white;
   flex-direction: row;
 }
 
-.defaultInput {
+.default {
   background-color: white;
 }
 
@@ -49,17 +49,6 @@ $Background: white;
   border-radius: unset;
   text-align: initial;
   background-color: white;
-  .button {
-    background: white;
-    cursor: pointer;
-    border: 2px solid white;
-    transition: all 0.3s ease;
-    outline: none;
-  }
-  .button:hover {
-    background: black;
-    color: white;
-  }
 }
 
 @media (max-width: 450px) {
