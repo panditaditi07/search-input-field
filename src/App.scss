@@ -1,14 +1,4 @@
-* {
-  background-color: linear-gradient(
-    to bottom right,
-    #274b74 0%,
-    #8233c5 50%,
-    #e963fd 100%
-  );
-}
 .App {
-  width: 300px;
-  height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -16,7 +6,5 @@
   margin: 200px auto;
 }
 .searchInput {
-  border: 2px solid white;
   background-color: white;
-  color: black;
 }
