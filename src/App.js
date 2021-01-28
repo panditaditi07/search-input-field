@@ -2,8 +2,8 @@ import { Component } from "react";
 import "./App.scss";
 import { searchData } from "./data/searchData";
 // import searchData from "./data/jsonData.json";
-
-import SearchBox from "./components/searchBox";
+import SearchBox from "./components/SearchBox/searchBox";
+// import Dropdown from "./components/Dropdown/Dropdown";
 
 class App extends Component {
   state = {

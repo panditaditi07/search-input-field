@@ -25,14 +25,15 @@ class SearchBox extends Component {
     let searchkeys = this.props.searchkeys;
     searchkeys.forEach((searchkey) => {
       data.forEach((getData) => {
-        if (getData[searchkey]) {
-          if (
-            getData[searchkey]
-              .toLowerCase()
-              .includes(this.state.searchField.toLowerCase())
-          ) {
-            result.push(getData);
-          }
+        if (!getData[searchkey]) {
+          return;
+        }
+        if (
+          getData[searchkey]
+            .toLowerCase()
+            .includes(this.state.searchField.toLowerCase())
+        ) {
+          result.push(getData);
         }
       });
     });
@@ -53,14 +54,13 @@ class SearchBox extends Component {
             className ? className : styles["default"]
           } ${iconPosition}`}
         >
-          <form>
-            <input
-              type="text"
-              className={styles["search-field"]}
-              placeholder={placeholder}
-              onChange={this.handleChange}
-            />
-          </form>
+          <input
+            type="text"
+            className={styles["search-field"]}
+            placeholder={placeholder}
+            onChange={this.handleChange}
+          />
+
           <button type="submit" className={styles["button"]}>
             <FontAwesomeIcon icon={faSearch} className={styles["icon"]} />
           </button>
