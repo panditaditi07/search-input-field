@@ -73,11 +73,11 @@ SearchBox.propTypes = {
   /**
    *  must be array of objects
    */
-  data: propTypes.array,
+  data: propTypes.array.required,
   /**
    * must be array of object keys
    */
-  searchkeys: propTypes.arrayOf(propTypes.string),
+  searchkeys: propTypes.arrayOf(propTypes.string.required),
   /**
    * must be a string (searchInput)
    */
