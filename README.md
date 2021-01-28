@@ -17,11 +17,11 @@
 
 ---
 
-# Props
+# Props:
 
 - ### `data` - The array of objects. This prop is required.
 - ### `placeholder` - The placeholder text for the input box.
-- ### `iconPosition` - it defines the icon position. Must be left/right. Default `false`
+- ### `iconPosition` - it defines the icon position. Must be left/right. Default `right`
 - ### `className` - className must string. Default `""`
 - ### `searchkeys` - The array of object keys.This prop is required.
 - ### `result` - This will print the data that is searched.
