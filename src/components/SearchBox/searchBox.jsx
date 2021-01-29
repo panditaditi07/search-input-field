@@ -8,11 +8,12 @@ class SearchBox extends Component {
   state = {
     searchField: "",
   };
-
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.searchField !== this.state.searchField) this.searchKeys();
+  };
   handleChange = (event) => {
     this.setState({ searchField: event.target.value });
     this.props.onChange(this.state.searchField);
-    this.searchKeys();
   };
 
   /**

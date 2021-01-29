@@ -3,6 +3,7 @@ import "./App.scss";
 import { searchData } from "./data/searchData";
 // import searchData from "./data/jsonData.json";
 import SearchBox from "./components/SearchBox/searchBox";
+import DropDown from "./components/DropDown/dropDown";
 
 class App extends Component {
   state = {
@@ -30,6 +31,11 @@ class App extends Component {
             }}
           />
         </div>
+        <DropDown
+          data={searchData}
+          placeholder="Search"
+          searchList={{ searchkeys: ["name"] }}
+        />
       </>
     );
   }
