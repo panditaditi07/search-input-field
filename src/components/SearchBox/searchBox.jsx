@@ -60,10 +60,9 @@ class SearchBox extends Component {
             placeholder={placeholder}
             onChange={this.handleChange}
           />
-
-          <button type="submit" className={styles["button"]}>
+          <div className={styles["icon-button"]}>
             <FontAwesomeIcon icon={faSearch} className={styles["icon"]} />
-          </button>
+          </div>
         </div>
       </>
     );

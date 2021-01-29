@@ -6,20 +6,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  .button {
-    background: white;
-    cursor: pointer;
+  .icon-button {
+    background-color: white;
     border: 2px solid white;
-    transition: all 0.3s ease;
-    outline: none;
-  }
-  .button:hover {
-    background: black;
-    color: white;
   }
   .icon {
+    background-color: white;
     margin: 9px;
-    font-size: 15px;
+    font-size: 20px;
   }
 }
 
