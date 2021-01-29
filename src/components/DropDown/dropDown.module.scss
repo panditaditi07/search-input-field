@@ -1,0 +1,42 @@
+.dropdownlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 275px;
+  //   margin: 50px auto;
+}
+.dropdown-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dropdown-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 275px;
+  height: 40px;
+  margin: 1px auto;
+  background-color: white;
+  .icon {
+    margin: 10px;
+  }
+  .button-heading {
+    margin: 10px;
+  }
+}
+.searchbar {
+  width: 275px;
+}
+
+// .dropdown-button {
+//   width: 100%;
+//   height: 100%;
+//   background-color: white;
+//   outline: none;
+//   border: 2px solid white;
+// }
+.hidden {
+  visibility: hidden;
+}

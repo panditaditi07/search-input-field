@@ -4,22 +4,18 @@
 
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  .button {
-    background: white;
-    cursor: pointer;
+  .icon-button {
+    background-color: white;
     border: 2px solid white;
-    transition: all 0.3s ease;
-    outline: none;
-  }
-  .button:hover {
-    background: black;
-    color: white;
   }
   .icon {
     margin: 9px;
-    font-size: 15px;
+    font-size: 20px;
+    background-color: white;
+    border: 2px solid white;
   }
 }
 
