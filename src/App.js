@@ -3,7 +3,6 @@ import "./App.scss";
 import { searchData } from "./data/searchData";
 // import searchData from "./data/jsonData.json";
 import SearchBox from "./components/SearchBox/searchBox";
-import Dropdown from "./components/DropDown/dropDown";
 
 class App extends Component {
   state = {
@@ -31,7 +30,6 @@ class App extends Component {
             }}
           />
         </div>
-        <Dropdown placeholder="Search.." />
       </>
     );
   }
