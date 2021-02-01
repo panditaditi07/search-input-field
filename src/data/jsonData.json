@@ -1,19 +1,272 @@
- [
+[
   {
-    "id": "1",
-    "name": "Aditi"
+    "name": "2fa saml issue",
+    "logo": {
+      "uid": "blt1cbf0a2fbd3103e9",
+      "created_at": "2021-01-15T09:51:13.158Z",
+      "updated_at": "2021-01-15T09:51:13.158Z",
+      "created_by": null,
+      "updated_by": null,
+      "content_type": "image/png",
+      "file_size": "186981",
+      "tags": [],
+      "app_user_object_uid": "blt7506d2145bfe9d3b",
+      "filename": "screencapture-dev-nba-opin-media-dashboard-partner-blt46cf90e511a64e06-config-blt30eb492019d89535-settings-2021-01-15-15_09_23.png",
+      "url": "https://dev-backend-api.opin.media/v1/classes/partner/objects/bltf0b2febb2a469480/uploads/600165915ba878015bb19d6c/application_api_key/blt3e0ac5fb889c3f40",
+      "ACL": {}
+    },
+    "description": "",
+    "uid": "bltf0b2febb2a469480",
+    "partner_configurations": [
+      {
+        "name_id": "2fa",
+        "published": false,
+        "partner_uid": "bltf0b2febb2a469480",
+        "uid": "blt6548f0c8ac9bbed7"
+      }
+    ]
   },
   {
-    "id": "2",
-    "name": "Clive"
+    "name": "TestQA 1",
+    "logo": {
+      "uid": "blt305531811b958f0d",
+      "created_at": "2021-01-11T06:02:19.398Z",
+      "updated_at": "2021-01-11T06:02:19.398Z",
+      "created_by": null,
+      "updated_by": null,
+      "content_type": "image/png",
+      "file_size": "181843",
+      "tags": [],
+      "app_user_object_uid": "bltaab30f07699fab20",
+      "filename": "cloudVerifiedService_ums_5f8ec680a19edd51ce54cf86_1 (2).png",
+      "url": "https://dev-backend-api.opin.media/v1/classes/partner/objects/blt1cdc06bc815d176f/uploads/5ffbe9eb2a19b00f7794e7c7/application_api_key/blt3e0ac5fb889c3f40",
+      "ACL": {}
+    },
+    "description": "Test QA description",
+    "uid": "blt1cdc06bc815d176f",
+    "partner_configurations": [
+      {
+        "name_id": "test qa config",
+        "published": false,
+        "partner_uid": "blt1cdc06bc815d176f",
+        "uid": "blt44caf53f7d29a1bb"
+      }
+    ]
   },
   {
-   "id": "3",
-   "name": "Talib"
+    "name": "ASDFG",
+    "logo": {
+      "uid": "blt555c313083d6bc4f",
+      "created_at": "2020-12-15T10:25:41.232Z",
+      "updated_at": "2020-12-15T10:25:41.232Z",
+      "created_by": null,
+      "updated_by": null,
+      "content_type": "image/png",
+      "file_size": "196165",
+      "tags": [],
+      "app_user_object_uid": "blt7506d2145bfe9d3b",
+      "filename": "screencapture-raweng-atlassian-net-secure-Dashboard-jspa-2020-12-04-20_48_30.png",
+      "url": "https://dev-backend-api.opin.media/v1/classes/partner/objects/blt220a8c5bee83f54d/uploads/5fd88f2572af074da80e82e7/application_api_key/blt3e0ac5fb889c3f40",
+      "ACL": {}
+    },
+    "description": "ASDFGbmbmnbmn",
+    "uid": "blt220a8c5bee83f54d",
+    "partner_configurations": [
+      {
+        "name_id": "qdwfegrht",
+        "published": false,
+        "partner_uid": "blt220a8c5bee83f54d",
+        "uid": "blt66d73a48a55353a5"
+      },
+      {
+        "name_id": "khlgkjh",
+        "published": false,
+        "partner_uid": "blt220a8c5bee83f54d",
+        "uid": "blta365062331a4dfc5"
+      },
+      {
+        "name_id": "ASDEFRGTHG",
+        "published": false,
+        "partner_uid": "blt220a8c5bee83f54d",
+        "uid": "blt9c9b22aa7244f88b"
+      },
+      {
+        "name_id": "waesgrdthfh",
+        "published": false,
+        "partner_uid": "blt220a8c5bee83f54d",
+        "uid": "blt5f5a7014b7dc525a"
+      },
+      {
+        "name_id": "sedrtyguijk",
+        "published": false,
+        "partner_uid": "blt220a8c5bee83f54d",
+        "uid": "blt5d8643935bed1301"
+      },
+      {
+        "name_id": "fcgvhbjnkml;",
+        "published": false,
+        "partner_uid": "blt220a8c5bee83f54d",
+        "uid": "blt3a0230baa7373f2c"
+      }
+    ]
   },
   {
-   "id": "4",
-    "name": "Abhay"
+    "name": "BannerOnly",
+    "logo": {
+      "uid": "blte49dc53e17b869ee",
+      "created_at": "2019-10-11T05:27:36.660Z",
+      "updated_at": "2019-10-11T05:27:36.660Z",
+      "created_by": null,
+      "updated_by": null,
+      "content_type": "image/png",
+      "file_size": "32026",
+      "tags": [],
+      "app_user_object_uid": "blt03de00f7f1bcd5d4",
+      "filename": "logo-placeholder.png",
+      "url": "https://dev-backend-api.opin.media/v1/classes/partner/objects/blt2a056850f50bb24a/uploads/5da012c80c67411c6896fcc6/application_api_key/blt3e0ac5fb889c3f40",
+      "ACL": {}
+    },
+    "description": "BannerOnclyascs44   42434 324234324 32423423432 .     324342",
+    "uid": "blt2a056850f50bb24a",
+    "partner_configurations": [
+      {
+        "name_id": "banneronly",
+        "published": true,
+        "partner_uid": "blt2a056850f50bb24a",
+        "uid": "bltc7531bd5d2b76835"
+      }
+    ]
+  },
+  {
+    "name": "Ghanshyam",
+    "logo": {
+      "uid": "bltd343368fdc4dbdba",
+      "created_at": "2020-03-21T05:22:39.149Z",
+      "updated_at": "2020-03-21T05:22:39.149Z",
+      "created_by": null,
+      "updated_by": null,
+      "content_type": "image/jpeg",
+      "file_size": "1516",
+      "tags": [],
+      "app_user_object_uid": "blt252379eef176d030",
+      "filename": "148x148,2.jpg",
+      "url": "https://dev-backend-api.opin.media/v1/classes/partner/objects/blt81c495c2ffad5c15/uploads/5e75a49f05eb457af62f740c/application_api_key/blt3e0ac5fb889c3f40",
+      "ACL": {}
+    },
+    "description": "Viewing all functionality",
+    "uid": "blt81c495c2ffad5c15",
+    "partner_configurations": [
+      {
+        "name_id": "GhanshyamSD",
+        "published": false,
+        "partner_uid": "blt81c495c2ffad5c15",
+        "uid": "bltab407093aa43ef76"
+      }
+    ]
+  },
+  {
+    "name": "test-partner",
+    "logo": {
+      "uid": "blta3b8d6c51c4e960f",
+      "created_at": "2020-08-04T15:55:29.304Z",
+      "updated_at": "2020-08-04T15:55:29.304Z",
+      "created_by": null,
+      "updated_by": null,
+      "content_type": "image/png",
+      "file_size": "4183",
+      "tags": [],
+      "app_user_object_uid": "bltf11e0ccee05908ce",
+      "filename": "Screenshot 2020-07-09 at 5.33.28 PM.png",
+      "url": "https://dev-backend-api.opin.media/v1/classes/partner/objects/blt821654167b35c79d/uploads/5f2984f1f064bd6aa6cd97f4/application_api_key/blt3e0ac5fb889c3f40",
+      "ACL": {}
+    },
+    "description": "",
+    "uid": "blt821654167b35c79d",
+    "partner_configurations": [
+      {
+        "name_id": "test-partner-config",
+        "published": false,
+        "partner_uid": "blt821654167b35c79d",
+        "uid": "blt0c9ed5709a7c737b"
+      }
+    ]
+  },
+  {
+    "name": "Movistar Prod",
+    "logo": {
+      "uid": "blta2edbc7ba9ac960f",
+      "created_at": "2018-10-08T06:03:08.873Z",
+      "updated_at": "2018-10-08T06:03:08.873Z",
+      "created_by": null,
+      "updated_by": null,
+      "content_type": "image/png",
+      "file_size": "30458",
+      "tags": [],
+      "app_user_object_uid": null,
+      "filename": "movistar_prod.png",
+      "url": "https://dev-backend-api.opin.media/v1/classes/partner/objects/blt9d0cff8af9df4c06/uploads/5bbaf31c35d8d59e1858b600/application_api_key/blt3e0ac5fb889c3f40",
+      "ACL": {}
+    },
+    "description": "movistar partner",
+    "uid": "blt9d0cff8af9df4c06",
+    "partner_configurations": [
+      {
+        "partner_uid": "blt9d0cff8af9df4c06",
+        "published": true,
+        "uid": "blt93e343d2f402c374",
+        "name_id": "movistar_zrh"
+      }
+    ]
+  },
+  {
+    "name": "talib test",
+    "logo": {
+      "uid": "bltda2c3dcf59969d1c",
+      "created_at": "2020-01-24T09:12:03.851Z",
+      "updated_at": "2020-01-24T09:12:03.851Z",
+      "created_by": null,
+      "updated_by": null,
+      "content_type": "image/png",
+      "file_size": "349125",
+      "tags": [],
+      "app_user_object_uid": "blt78d242e4901e9b73",
+      "filename": "Screenshot from 2020-01-08 16-22-43.png",
+      "url": "https://dev-backend-api.opin.media/v1/classes/partner/objects/bltf6e2a6f818bd00fc/uploads/5e2ab4e36863a57d4f49ee1c/application_api_key/blt3e0ac5fb889c3f40",
+      "ACL": {}
+    },
+    "description": "neww",
+    "uid": "bltf6e2a6f818bd00fc",
+    "partner_configurations": [
+      {
+        "name_id": "talib_saml",
+        "published": false,
+        "partner_uid": "bltf6e2a6f818bd00fc",
+        "uid": "blt3537a809b2b92464"
+      },
+      {
+        "name_id": "bammeronly",
+        "published": false,
+        "partner_uid": "bltf6e2a6f818bd00fc",
+        "uid": "blt9f94e23b0ba34f24"
+      },
+      {
+        "name_id": "networkonly",
+        "published": false,
+        "partner_uid": "bltf6e2a6f818bd00fc",
+        "uid": "blte57e7264085797c0"
+      },
+      {
+        "name_id": "fdfe",
+        "published": false,
+        "partner_uid": "bltf6e2a6f818bd00fc",
+        "uid": "bltaaeef2daf0834824"
+      },
+      {
+        "name_id": "geofence",
+        "published": false,
+        "partner_uid": "bltf6e2a6f818bd00fc",
+        "uid": "blte7c7a5469ea6c7c9"
+      }
+    ]
   }
 ]
-
