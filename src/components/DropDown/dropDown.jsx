@@ -16,6 +16,11 @@ class DropDown extends Component {
   getResult = (result) => {
     this.setState({ resultList: [...result] });
   };
+  /**
+   *
+   * @param {option}
+   * stores array of Objects of the selected option
+   */
   addToList = (option) => {
     const { OptionList } = this.state;
     const { getList } = this.props;
@@ -29,21 +34,36 @@ class DropDown extends Component {
     }
     getList(OptionList);
   };
+
+  /**
+   * arrow angle is changed
+   */
   toggle = () => {
     this.setState({ showList: !this.state.showList });
   };
+  /**
+   *
+   * @param {option}
+   * stores the selected option
+   */
   getListData = (option) => {
     this.setState({ selectOption: option });
   };
-
+  /**
+   *
+   * @param {option}
+   * checks wheather the option is selected
+   */
   isSelected = (option) => {
     const { showKey } = this.props;
     return this.state.OptionList.some(
       (options) => options[showKey] === option[showKey]
     );
   };
+  /**
+   * returns dropdown list
+   */
   render() {
-    console.log(this.state.OptionList);
     const { showList, resultList, OptionList } = this.state;
     const { placeholder, data, searchList, showKey } = this.props;
     const list = resultList.length ? resultList : data;
@@ -51,49 +71,52 @@ class DropDown extends Component {
       ? OptionList[0][showKey]
       : placeholder;
     return (
-      <div className={styles["dropdown-div"]}>
-        <div className={styles["dropdown-button"]}>
-          <p className={styles["button-heading"]}>{selectedoption}</p>
-          <FontAwesomeIcon
-            onClick={this.toggle}
-            icon={showList ? faAngleUp : faAngleDown}
-            className={styles["icon"]}
-          />
-        </div>
-        {showList && (
-          <div id="lists" className={`${styles["dropdownlist"]}`}>
-            <SearchBox
-              data={data}
-              result={this.getResult}
-              searchkeys={searchList.searchkeys}
-              placeholder={placeholder}
-              onChange={(res) => {
-                console.log(res);
-              }}
-              className={styles["searchbar"]}
+      <>
+        <div className={styles["dropdown-div"]}>
+          <h2 className={styles["heading"]}>DropDown Menu</h2>
+          <div className={styles["dropdown-button"]}>
+            <p className={styles["button-heading"]}>{selectedoption}</p>
+            <FontAwesomeIcon
+              onClick={this.toggle}
+              icon={showList ? faAngleUp : faAngleDown}
+              className={styles["icon"]}
             />
-            {list.map((option, i) => {
-              return (
-                <div
-                  className={styles["lists"]}
-                  key={i}
-                  onClick={() => {
-                    this.addToList(option);
-                  }}
-                >
-                  <button
-                    className={`${styles["list-button"]} ${
-                      this.isSelected(option) ? styles["selected"] : ""
-                    }`}
-                  >
-                    {option[showKey]}
-                  </button>
-                </div>
-              );
-            })}
           </div>
-        )}
-      </div>
+          {showList && (
+            <div id="lists" className={`${styles["dropdownlist"]}`}>
+              <SearchBox
+                data={data}
+                result={this.getResult}
+                searchkeys={searchList.searchkeys}
+                placeholder={placeholder}
+                onChange={(res) => {
+                  console.log(res);
+                }}
+                className={styles["searchbar"]}
+              />
+              {list.map((option, i) => {
+                return (
+                  <div
+                    className={styles["lists"]}
+                    key={i}
+                    onClick={() => {
+                      this.addToList(option);
+                    }}
+                  >
+                    <button
+                      className={`${styles["list-button"]} ${
+                        this.isSelected(option) ? styles["selected"] : ""
+                      }`}
+                    >
+                      {option[showKey]}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </>
     );
   }
 }
