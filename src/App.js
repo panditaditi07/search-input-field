@@ -2,14 +2,14 @@ import { Component } from "react";
 import "./App.scss";
 // import { searchData } from "./data/searchData";
 import searchData from "./data/jsonData.json";
-import SearchBox from "./components/SearchBox/searchBox";
+// import SearchBox from "./components/SearchBox/searchBox";
 import DropDown from "./components/DropDown/dropDown";
 
 class App extends Component {
   state = {
     searchData: "",
   };
-  getResult = (result) => {
+  getList = (result) => {
     console.log(result);
   };
   /**
@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <>
         <div className="App">
-          <SearchBox
+          {/* <SearchBox
             data={searchData}
             placeholder="Search here"
             iconPosition="right"
@@ -29,16 +29,15 @@ class App extends Component {
             onChange={(value) => {
               console.log("res", value);
             }}
+          /> */}
+          <DropDown
+            data={searchData}
+            getList={this.getList}
+            showKey="name"
+            placeholder="Search"
+            searchList={{ searchkeys: ["name"] }}
           />
         </div>
-        <DropDown
-          data={searchData}
-          getList={this.getResult}
-          multipleSelect={true}
-          showKey="name"
-          placeholder="Search"
-          searchList={{ searchkeys: ["name"] }}
-        />
       </>
     );
   }

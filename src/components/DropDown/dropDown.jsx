@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import SearchBox from "../SearchBox/searchBox";
 import styles from "./dropDown.module.scss";
+import propTypes from "prop-types";
+
 class DropDown extends Component {
   state = {
     resultList: [],
@@ -10,70 +12,56 @@ class DropDown extends Component {
     selectedOption: "",
     showList: false,
   };
-  componentDidUpdate = () => {
-    if (this.state.showList) {
-      document.getElementById("lists").classList.add(styles["hidden"]);
-    } else {
-      document.getElementById("lists").classList.remove(styles["hidden"]);
-    }
-  };
 
   getResult = (result) => {
     this.setState({ resultList: [...result] });
   };
   addToList = (option) => {
     const { OptionList } = this.state;
+    const { getList } = this.props;
     if (OptionList === "undefined") {
       return [];
     } else {
-      OptionList.push(option);
+      const options = [{ ...option }];
+      // const options = [...OptionList, { ...option }];
+      this.setState({ OptionList: options });
+      this.toggle();
     }
-
-    this.props.getList(OptionList);
+    getList(OptionList);
   };
-
   toggle = () => {
     this.setState({ showList: !this.state.showList });
   };
   getListData = (option) => {
     this.setState({ selectOption: option });
-    // console.log("selected", this.state.selectOption);
   };
 
-  // isSelected = (option) => {
-  //   if (this.state.selectOption === option) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
   isSelected = (option) => {
-    if (this.state.OptionList.includes(option)) {
-      return true;
-    }
-    return false;
+    const { showKey } = this.props;
+    return this.state.OptionList.some(
+      (options) => options[showKey] === option[showKey]
+    );
   };
-
   render() {
-    // console.log(this.state.resultList);
-    const { showList, resultList } = this.state;
+    console.log(this.state.OptionList);
+    const { showList, resultList, OptionList } = this.state;
     const { placeholder, data, searchList, showKey } = this.props;
-
+    const list = resultList.length ? resultList : data;
+    const selectedoption = OptionList.length
+      ? OptionList[0][showKey]
+      : placeholder;
     return (
-      <div className={styles["container"]}>
-        <div className={styles["dropdown-div"]}>
-          <div className={styles["dropdown-button"]}>
-            <p className={styles["button-heading"]}>{placeholder}</p>
-            <FontAwesomeIcon
-              onClick={this.toggle}
-              icon={showList ? faAngleDown : faAngleUp}
-              className={styles["icon"]}
-            />
-          </div>
-
-          <div
-            id="lists"
-            className={`${styles["dropdownlist"]} ${styles["hidden"]}`}
-          >
+      <div className={styles["dropdown-div"]}>
+        <div className={styles["dropdown-button"]}>
+          <p className={styles["button-heading"]}>{selectedoption}</p>
+          <FontAwesomeIcon
+            onClick={this.toggle}
+            icon={showList ? faAngleUp : faAngleDown}
+            className={styles["icon"]}
+          />
+        </div>
+        {showList && (
+          <div id="lists" className={`${styles["dropdownlist"]}`}>
             <SearchBox
               data={data}
               result={this.getResult}
@@ -84,15 +72,12 @@ class DropDown extends Component {
               }}
               className={styles["searchbar"]}
             />
-
-            {resultList.map((option, i) => {
+            {list.map((option, i) => {
               return (
                 <div
-                  className={`${styles["lists"]} ${
-                    this.isSelected(option) ? styles["selected"] : ""
-                  }`}
+                  className={styles["lists"]}
                   key={i}
-                  onClick={(option) => {
+                  onClick={() => {
                     this.addToList(option);
                   }}
                 >
@@ -107,9 +92,36 @@ class DropDown extends Component {
               );
             })}
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
+
+DropDown.prototypes = {
+  /**
+   *  must be array of objects
+   */
+  data: propTypes.array.isRequired,
+  /**
+   * must be a string (searchInput)
+   */
+  showKey: propTypes.string.isRequired,
+  /**
+   * must be a string
+   */
+  placeholder: propTypes.string,
+  /**
+   * must be an object
+   */
+  searchList: propTypes.object,
+  /**
+   * must be array of object keys and it is an object of searchList
+   */
+  searchkeys: propTypes.arrayOf(propTypes.string.isRequired),
+};
+
+DropDown.defaultProps = {
+  placeholder: "",
+};
 export default DropDown;

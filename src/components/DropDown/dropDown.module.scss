@@ -1,34 +1,34 @@
-.dropdownlist {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 275px;
-  max-height: 40vh;
-  overflow-y: scroll;
-  // height: 200px;
-  // border: 1px solid red;
-  // margin: 50px auto;
-}
 .dropdown-div {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  max-height: 400px;
+  max-width: 300px;
+}
+.dropdownlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .dropdown-button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 275px;
+  width: 300px;
   height: 40px;
-  //   margin: 1px auto;
   background-color: white;
   .icon {
     margin: 10px;
   }
   .button-heading {
     margin: 10px;
+    overflow: hidden;
   }
 }
 .searchbar {
@@ -40,21 +40,20 @@
   height: 100%;
 }
 .list-button {
-  background-color: white;
-  border: 2px solid white;
+  all: inherit;
   outline: none;
+  width: 400px;
+  height: 40px;
+  margin: 5px;
+  overflow-y: scroll;
   user-select: none;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
 }
 
 .selected {
-  background: black;
-  color: white;
-  pointer-events: none;
-  border: 2px solid black;
+  background-color: #77aeca;
 }
-
-.hidden {
-  opacity: 0;
+.list-button:hover {
+  background: #add8e6;
 }
