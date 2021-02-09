@@ -18,6 +18,9 @@ class App extends Component {
   getResult = (result) => {
     console.log(result);
   };
+  getValue = (res) => {
+    console.log(res);
+  };
   /**
    * Use searchBar component to Search the data
    */
@@ -33,6 +36,7 @@ class App extends Component {
             className="searchInput"
             searchkeys={["name", "description"]}
             result={this.getResult}
+            onChange={this.getValue}
           />
         </div>
       </>

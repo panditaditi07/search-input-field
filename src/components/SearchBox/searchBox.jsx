@@ -22,7 +22,8 @@ class SearchBox extends Component {
    * searchkeys returns the array of objects as output
    *
    */
-  searchKeys = (event) => {
+  searchKeys = () => {
+    const { searchField } = this.state;
     let data = this.props.data;
     let result = [];
     let searchkeys = this.props.searchkeys;
@@ -32,9 +33,7 @@ class SearchBox extends Component {
           return;
         }
         if (
-          getData[searchkey]
-            .toLowerCase()
-            .includes(this.state.searchField.toLowerCase())
+          getData[searchkey].toLowerCase().includes(searchField.toLowerCase())
         ) {
           result.push(getData);
         }
