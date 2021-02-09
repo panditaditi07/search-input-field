@@ -7,21 +7,22 @@ import propTypes from "prop-types";
 class SearchBox extends Component {
   state = {
     searchField: "",
+    filteredResult: [],
   };
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.searchField !== this.state.searchField) this.searchKeys();
   };
+
   handleChange = (event) => {
     this.setState({ searchField: event.target.value });
-    this.props.onChange(this.state.searchField);
   };
 
   /**
    * searchkeys returns the array of objects as output
    *
    */
-  searchKeys = () => {
+  searchKeys = (event) => {
     let data = this.props.data;
     let result = [];
     let searchkeys = this.props.searchkeys;
@@ -40,8 +41,10 @@ class SearchBox extends Component {
       });
     });
 
+    this.setState({ filteredResult: result });
     this.props.result(result);
   };
+
   render() {
     /**
      * this will render the searchBar component
@@ -52,18 +55,25 @@ class SearchBox extends Component {
     return (
       <>
         <div
+          data-test="SearchBoxComponent"
           className={`${styles["container"]} ${styles[iconPosition]} ${
             className ? className : styles["default"]
           } ${iconPosition}`}
         >
           <input
+            id="address"
+            data-test="input-field"
             type="text"
             className={styles["search-field"]}
             placeholder={placeholder}
             onChange={this.handleChange}
           />
           <div className={styles["icon-button"]}>
-            <FontAwesomeIcon icon={faSearch} className={styles["icon"]} />
+            <FontAwesomeIcon
+              data-test="icon"
+              icon={faSearch}
+              className={styles["icon"]}
+            />
           </div>
         </div>
       </>
@@ -91,6 +101,7 @@ SearchBox.propTypes = {
    * must be a string and must have value left/right
    */
   iconPosition: propTypes.oneOf(["left", "right"]),
+  result: propTypes.func.isRequired,
 };
 
 SearchBox.defaultProps = {

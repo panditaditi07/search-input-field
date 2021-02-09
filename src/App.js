@@ -1,13 +1,19 @@
 import { Component } from "react";
 import "./App.scss";
-import { searchData } from "./data/searchData";
-// import searchData from "./data/jsonData.json";
+// import { searchData } from "./data/searchData";
+import searchData from "./data/jsonData.json";
 import SearchBox from "./components/SearchBox/searchBox";
 // import Dropdown from "./components/Dropdown/Dropdown";
 
 class App extends Component {
   state = {
-    searchData: "",
+    searchData: [],
+  };
+
+  componentDidMount = () => {
+    this.setState((state, props) => ({
+      searchData: searchData.partners,
+    }));
   };
   getResult = (result) => {
     console.log(result);
@@ -16,19 +22,17 @@ class App extends Component {
    * Use searchBar component to Search the data
    */
   render() {
+    console.log(this.state.searchData);
     return (
       <>
         <div className="App">
           <SearchBox
-            data={searchData}
-            placeholder="Search here"
+            data={this.state.searchData}
+            placeholder="Search"
             iconPosition="right"
             className="searchInput"
             searchkeys={["name", "description"]}
             result={this.getResult}
-            onChange={(value) => {
-              console.log("res", value);
-            }}
           />
         </div>
       </>
