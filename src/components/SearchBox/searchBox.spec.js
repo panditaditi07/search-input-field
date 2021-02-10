@@ -24,13 +24,24 @@ const properties = {
 };
 
 /**
- *
  * @param {props}
  * This method is used to render the single component that we are testing.
  */
 const setUp = (props = properties) => {
   const component = shallow(<SearchBox {...props} />);
   return component;
+};
+
+/**
+ * @param {component}
+ * simulate func for onChange
+ */
+const simulateFunc = (component) => {
+  let event = {
+    target: { value: "A" },
+  };
+  const wrapper = component.find("input").simulate("change", event);
+  return wrapper;
 };
 describe("SearchBox Component", () => {
   let component;
@@ -49,44 +60,52 @@ describe("SearchBox Component", () => {
     const wrapper = component.find(`[data-test='${"icon"}']`);
     expect(wrapper.length).toBe(1);
   });
-});
-/**
- *
- * @param {component}
- * @param {event}
- * generalize func for the onchange simulation
- */
-const simulateFunc = (component, event) => {
-  const wrapper = component.find("input").simulate("change", event);
-  return wrapper;
-};
-describe("Renders", () => {
-  let component;
-  let event = {
-    target: { value: "A" },
-  };
-  beforeEach(() => {
-    component = setUp();
-  });
-
   it("Should call onChange", () => {
-    simulateFunc(component, event);
+    simulateFunc(component);
   });
   it("Should search the data", () => {
-    simulateFunc(component, event);
+    simulateFunc(component);
     expect(component.state("searchField")).toBe("A");
   });
 
   it("Should check for the search data", () => {
-    simulateFunc(component, event);
+    simulateFunc(component);
     expect(component.state("filteredResult")[0]["name"]).toBe(
       properties.data[0]["name"]
     );
   });
   it("Should check for the search data's length", () => {
-    simulateFunc(component, event);
+    simulateFunc(component);
     expect(component.state("filteredResult")[0]["name"].length == 2).toBe(
       properties.data[0]["name"].length == 2
     );
   });
 });
+
+// describe("Renders", () => {
+//   let component;
+//   beforeEach(() => {
+//     component = setUp();
+//   });
+
+//   it("Should call onChange", () => {
+//     simulateFunc(component);
+//   });
+//   it("Should search the data", () => {
+//     simulateFunc(component);
+//     expect(component.state("searchField")).toBe("A");
+//   });
+
+//   it("Should check for the search data", () => {
+//     simulateFunc(component);
+//     expect(component.state("filteredResult")[0]["name"]).toBe(
+//       properties.data[0]["name"]
+//     );
+//   });
+//   it("Should check for the search data's length", () => {
+//     simulateFunc(component);
+//     expect(component.state("filteredResult")[0]["name"].length == 2).toBe(
+//       properties.data[0]["name"].length == 2
+//     );
+//   });
+// });
