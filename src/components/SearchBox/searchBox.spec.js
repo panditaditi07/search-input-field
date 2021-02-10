@@ -81,31 +81,3 @@ describe("SearchBox Component", () => {
     );
   });
 });
-
-// describe("Renders", () => {
-//   let component;
-//   beforeEach(() => {
-//     component = setUp();
-//   });
-
-//   it("Should call onChange", () => {
-//     simulateFunc(component);
-//   });
-//   it("Should search the data", () => {
-//     simulateFunc(component);
-//     expect(component.state("searchField")).toBe("A");
-//   });
-
-//   it("Should check for the search data", () => {
-//     simulateFunc(component);
-//     expect(component.state("filteredResult")[0]["name"]).toBe(
-//       properties.data[0]["name"]
-//     );
-//   });
-//   it("Should check for the search data's length", () => {
-//     simulateFunc(component);
-//     expect(component.state("filteredResult")[0]["name"].length == 2).toBe(
-//       properties.data[0]["name"].length == 2
-//     );
-//   });
-// });
