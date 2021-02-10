@@ -4,6 +4,9 @@ import { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import SearchBox from "./searchBox";
 Enzyme.configure({ adapter: new Adapter() });
+/**
+ * required props for the Component
+ */
 const properties = {
   data: [
     {
@@ -19,6 +22,12 @@ const properties = {
   searchkeys: ["name"],
   result: jest.fn(),
 };
+
+/**
+ *
+ * @param {props}
+ * This method is used to render the single component that we are testing.
+ */
 const setUp = (props = properties) => {
   const component = shallow(<SearchBox {...props} />);
   return component;
@@ -40,15 +49,42 @@ describe("SearchBox Component", () => {
     const wrapper = component.find(`[data-test='${"icon"}']`);
     expect(wrapper.length).toBe(1);
   });
-  it("Should call onChange and search the required data", () => {
-    let event = {
-      target: { value: "A" },
-    };
-    component.find("input").simulate("change", event);
+});
+/**
+ *
+ * @param {component}
+ * @param {event}
+ * generalize func for the onchange simulation
+ */
+const simulateFunc = (component, event) => {
+  const wrapper = component.find("input").simulate("change", event);
+  return wrapper;
+};
+describe("Renders", () => {
+  let component;
+  let event = {
+    target: { value: "A" },
+  };
+  beforeEach(() => {
+    component = setUp();
+  });
+
+  it("Should call onChange", () => {
+    simulateFunc(component, event);
+  });
+  it("Should search the data", () => {
+    simulateFunc(component, event);
     expect(component.state("searchField")).toBe("A");
+  });
+
+  it("Should check for the search data", () => {
+    simulateFunc(component, event);
     expect(component.state("filteredResult")[0]["name"]).toBe(
       properties.data[0]["name"]
     );
+  });
+  it("Should check for the search data's length", () => {
+    simulateFunc(component, event);
     expect(component.state("filteredResult")[0]["name"].length == 2).toBe(
       properties.data[0]["name"].length == 2
     );
