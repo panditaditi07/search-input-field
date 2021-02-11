@@ -32,8 +32,8 @@ class App extends Component {
           <SearchBox
             data={this.state.searchData}
             placeholder="Search"
-            iconPosition="right"
-            className="searchInput"
+            iconPosition="left"
+            // className="searchInput"
             searchkeys={["name", "description"]}
             result={this.getResult}
             onChange={this.getValue}

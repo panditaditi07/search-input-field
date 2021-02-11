@@ -56,8 +56,8 @@ class SearchBox extends Component {
         <div
           data-test="SearchBoxComponent"
           className={`${styles["container"]} ${styles[iconPosition]} ${
-            className ? className : styles["default"]
-          } ${iconPosition}`}
+            styles[className ? className : "default"]
+          }`}
         >
           <input
             id="address"
@@ -92,6 +92,7 @@ SearchBox.propTypes = {
    * must be a string (searchInput)
    */
   className: propTypes.string,
+
   /**
    * must be a string
    */
@@ -101,6 +102,7 @@ SearchBox.propTypes = {
    */
   iconPosition: propTypes.oneOf(["left", "right"]),
   result: propTypes.func.isRequired,
+  onChange: propTypes.func,
 };
 
 SearchBox.defaultProps = {

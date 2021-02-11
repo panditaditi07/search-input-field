@@ -21,10 +21,11 @@ const properties = {
   ],
   searchkeys: ["name"],
   result: jest.fn(),
+  className: "searchInput",
 };
 
 /**
- * @param {props}
+ * @param {props} props
  * This method is used to render the single component that we are testing.
  */
 const setUp = (props = properties) => {
@@ -33,15 +34,15 @@ const setUp = (props = properties) => {
 };
 
 /**
- * @param {component}
+ * @param {component} component
  * simulate func for onChange
  */
 const simulateFunc = (component) => {
   let event = {
     target: { value: "A" },
   };
-  const wrapper = component.find("input").simulate("change", event);
-  return wrapper;
+  const InputonChange = component.find("input").simulate("change", event);
+  return InputonChange;
 };
 describe("SearchBox Component", () => {
   let component;
@@ -52,17 +53,16 @@ describe("SearchBox Component", () => {
     const wrapper = component.find(`[data-test='${"SearchBoxComponent"}']`);
     expect(wrapper.length).toBe(1);
   });
-  it("Should render the input field", () => {
-    const wrapper = component.find(`[data-test='${"input-field"}']`);
-    expect(wrapper.length).toBe(1);
+
+  it("Should check for className", () => {
+    const inputField = component.find(`[data-test='${"SearchBoxComponent"}']`);
+    expect(inputField.hasClass(properties.className)).toEqual(true);
   });
-  it("Should render the icon", () => {
-    const wrapper = component.find(`[data-test='${"icon"}']`);
-    expect(wrapper.length).toBe(1);
-  });
-  it("Should call onChange", () => {
-    simulateFunc(component);
-  });
+  // it("Should check for className", () => {
+  //   const inputField = component.find(`[data-test='${"SearchBoxComponent"}']`);
+  //   expect(inputField.hasClass(!properties.className)).toEqual(false);
+  // });
+
   it("Should search the data", () => {
     simulateFunc(component);
     expect(component.state("searchField")).toBe("A");
@@ -76,8 +76,17 @@ describe("SearchBox Component", () => {
   });
   it("Should check for the search data's length", () => {
     simulateFunc(component);
-    expect(component.state("filteredResult")[0]["name"].length == 2).toBe(
-      properties.data[0]["name"].length == 2
-    );
+    expect(component.state("filteredResult").length).toEqual(2);
+  });
+});
+describe("Should not contain searchkeys", () => {
+  const properties1 = {
+    data: [],
+    searchkeys: [],
+    result: jest.fn(),
+  };
+  const component = shallow(<SearchBox {...properties1} />);
+  it("Checks for empty dataValue and searchKeys", () => {
+    expect(component).toMatchObject({});
   });
 });
