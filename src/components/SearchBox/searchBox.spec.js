@@ -58,10 +58,12 @@ describe("SearchBox Component", () => {
     const inputField = component.find(`[data-test='${"SearchBoxComponent"}']`);
     expect(inputField.hasClass(properties.className)).toEqual(true);
   });
-  // it("Should check for className", () => {
-  //   const inputField = component.find(`[data-test='${"SearchBoxComponent"}']`);
-  //   expect(inputField.hasClass(!properties.className)).toEqual(false);
-  // });
+  it("Should check for className", () => {
+    const properties1 = { ...properties, className: "" };
+    component = setUp(properties1);
+    const inputField = component.find(`[data-test='${"SearchBoxComponent"}']`);
+    expect(inputField.hasClass("default")).toEqual(true);
+  });
 
   it("Should search the data", () => {
     simulateFunc(component);
@@ -78,15 +80,9 @@ describe("SearchBox Component", () => {
     simulateFunc(component);
     expect(component.state("filteredResult").length).toEqual(2);
   });
-});
-describe("Should not contain searchkeys", () => {
-  const properties1 = {
-    data: [],
-    searchkeys: [],
-    result: jest.fn(),
-  };
-  const component = shallow(<SearchBox {...properties1} />);
-  it("Checks for empty dataValue and searchKeys", () => {
-    expect(component).toMatchObject({});
+  it("Should not contain searchkeys", () => {
+    const properties1 = { ...properties, searchkeys: ["description"] };
+    component = setUp(properties1);
+    simulateFunc(component);
   });
 });
