@@ -42,15 +42,6 @@ class DropDown extends Component {
     this.setState({ showList: !this.state.showList });
   };
   /**
-   *
-   * @param {option}
-   * stores the selected option
-   */
-  getListData = (option) => {
-    this.setState({ selectOption: option });
-  };
-  /**
-   *
    * @param {option}
    * checks wheather the option is selected
    */
@@ -72,12 +63,13 @@ class DropDown extends Component {
       : placeholder;
     return (
       <>
-        <div className={styles["dropdown-div"]}>
+        <div className={styles["dropdown-div"]} data-test="DropdownComponent">
           <h2 className={styles["heading"]}>DropDown Menu</h2>
           <div className={styles["dropdown-button"]}>
             <p className={styles["button-heading"]}>{selectedoption}</p>
             <FontAwesomeIcon
               onClick={this.toggle}
+              data-test="icon"
               icon={showList ? faAngleUp : faAngleDown}
               className={styles["icon"]}
             />
@@ -121,7 +113,7 @@ class DropDown extends Component {
   }
 }
 
-DropDown.prototypes = {
+DropDown.propTypes = {
   /**
    *  must be array of objects
    */
@@ -142,6 +134,10 @@ DropDown.prototypes = {
    * must be array of object keys and it is an object of searchList
    */
   searchkeys: propTypes.arrayOf(propTypes.string.isRequired),
+  /**
+   * will give the result
+   */
+  getList: propTypes.func.isRequired,
 };
 
 DropDown.defaultProps = {
