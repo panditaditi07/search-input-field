@@ -33,12 +33,6 @@ describe("Dropdown Component", () => {
     expect(component.length).toBe(1);
   });
 
-  it("should toggle  - function test", () => {
-    const component = shallow(<DropDown {...properties} />);
-    expect(component.state("showList")).toEqual(false);
-    component.instance().toggle();
-    expect(component.state("showList")).toEqual(true);
-  });
   it("should toggle - button test", () => {
     const component = shallow(<DropDown {...properties} />);
     expect(component.state("showList")).toEqual(false);
@@ -49,5 +43,11 @@ describe("Dropdown Component", () => {
     const component = shallow(<DropDown {...properties} />);
     component.instance().getResult(properties.result);
     expect(component.state("resultList").length).toEqual(1);
+  });
+  it(" should add to the list - function test", () => {
+    const properties1 = { ...properties, option: { name: "Aditi" } };
+    const component = shallow(<DropDown {...properties1} />);
+    component.instance().addToList(properties1.option);
+    expect(component.state("OptionList").length).toEqual(1);
   });
 });

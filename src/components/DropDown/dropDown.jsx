@@ -22,17 +22,14 @@ class DropDown extends Component {
    * stores array of Objects of the selected option
    */
   addToList = (option) => {
-    const { OptionList } = this.state;
+    // const { OptionList } = this.state;
     const { getList } = this.props;
-    if (OptionList === "undefined") {
-      return [];
-    } else {
-      const options = [{ ...option }];
-      // const options = [...OptionList, { ...option }];
-      this.setState({ OptionList: options });
+    const options = [{ ...option }];
+    // const options = [...OptionList, { ...option }];
+    this.setState({ OptionList: options }, () => {
       this.toggle();
-    }
-    getList(OptionList);
+      getList(this.state.OptionList);
+    });
   };
 
   /**
@@ -94,6 +91,7 @@ class DropDown extends Component {
                     onClick={() => {
                       this.addToList(option);
                     }}
+                    data-test="list"
                   >
                     <button
                       className={`${styles["list-button"]} ${
