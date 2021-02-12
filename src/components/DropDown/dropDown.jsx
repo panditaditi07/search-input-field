@@ -91,6 +91,7 @@ class DropDown extends Component {
                     data-test="list"
                   >
                     <button
+                      data-test="selected"
                       className={`${styles["list-button"]} ${
                         this.isSelected(option) ? styles["selected"] : ""
                       }`}
