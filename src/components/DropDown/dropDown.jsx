@@ -78,9 +78,6 @@ class DropDown extends Component {
                 result={this.getResult}
                 searchkeys={searchList.searchkeys}
                 placeholder={placeholder}
-                onChange={(res) => {
-                  console.log(res);
-                }}
                 className={styles["searchbar"]}
               />
               {list.map((option, i) => {
