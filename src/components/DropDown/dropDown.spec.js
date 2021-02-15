@@ -36,13 +36,13 @@ describe("Dropdown Component", () => {
     ],
     searchList: { searchkeys: ["name"] },
     showKey: "name",
-    className: "selected",
 
     result: [
       {
         name: "Aditi",
       },
     ],
+
     getList: jest.fn(),
   };
   it("should render without errors", () => {
@@ -87,11 +87,12 @@ describe("Dropdown Component", () => {
     simulateFuncList(icon);
     expect(properties1.icon).toEqual(faAngleDown);
   });
-  // it("should check for selected className", () => {
-  //   const selectedClass = shallow(<DropDown {...properties} />);
-  //   simulateFuncIcon(selectedClass);
-  //   console.log(simulateFuncList(selectedClass));
-  //   selectedClass.instance().isSelected(properties.result);
-  //   expect(selectedClass.hasClass(properties.className)).toEqual(true);
-  // });
+  it("should check for selected className", () => {
+    const selectedClass = shallow(<DropDown {...properties} />);
+    simulateFuncIcon(selectedClass);
+    simulateFuncList(selectedClass);
+    expect(
+      selectedClass.find("button").first().hasClass("list-button selected")
+    ).toEqual(true);
+  });
 });

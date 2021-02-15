@@ -27,7 +27,7 @@ class DropDown extends Component {
     const options = [{ ...option }];
     // const options = [...OptionList, { ...option }];
     this.setState({ OptionList: options }, () => {
-      this.toggle();
+      // this.toggle();
       getList(this.state.OptionList);
     });
   };
@@ -91,9 +91,8 @@ class DropDown extends Component {
                     data-test="list"
                   >
                     <button
-                      data-test="selected"
                       className={`${styles["list-button"]} ${
-                        this.isSelected(option) ? styles["selected"] : ""
+                        styles[this.isSelected(option) ? "selected" : ""]
                       }`}
                     >
                       {option[showKey]}
@@ -140,3 +139,5 @@ DropDown.defaultProps = {
   placeholder: "",
 };
 export default DropDown;
+
+// className = this.isSelected(option) ? styles["selected"] : "";
