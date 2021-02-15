@@ -27,9 +27,18 @@ class DropDown extends Component {
     const options = [{ ...option }];
     // const options = [...OptionList, { ...option }];
     this.setState({ OptionList: options }, () => {
-      // this.toggle();
+      this.toggle();
       getList(this.state.OptionList);
     });
+  };
+
+  hideList = (event) => {
+    if (
+      event.currentTarget.id === "dropdown-div" &&
+      !event.currentTarget.contains(event.relatedTarget)
+    ) {
+      this.toggle();
+    }
   };
 
   /**
@@ -60,7 +69,12 @@ class DropDown extends Component {
       : placeholder;
     return (
       <>
-        <div className={styles["dropdown-div"]} data-test="DropdownComponent">
+        <div
+          id="dropdown-div"
+          onBlur={this.hideList}
+          className={styles["dropdown-div"]}
+          data-test="DropdownComponent"
+        >
           <h2 className={styles["heading"]}>DropDown Menu</h2>
           <div className={styles["dropdown-button"]}>
             <p className={styles["button-heading"]}>{selectedoption}</p>

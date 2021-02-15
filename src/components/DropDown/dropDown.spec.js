@@ -7,13 +7,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 Enzyme.configure({ adapter: new Adapter() });
-
+/**
+ *
+ * @param {component} component
+ * simulate func for onClick icon
+ */
 const simulateFuncIcon = (component) => {
   const simulatefunc = component
     .find(`[data-test='${"icon"}']`)
     .simulate("click");
   return simulatefunc;
 };
+/**
+ *
+ * @param {component} component
+ * simulate func for onClick list
+ */
 const simulateFuncList = (component) => {
   const simulatefunc = component
     .find(`[data-test='${"list"}']`)
@@ -57,9 +66,9 @@ describe("Dropdown Component", () => {
     expect(component.state("showList")).toEqual(true);
   });
   it("Should check for resultList", () => {
-    const resultList = shallow(<DropDown {...properties} />);
-    resultList.instance().getResult(properties.result);
-    expect(resultList.state("resultList").length).toEqual(1);
+    const component = shallow(<DropDown {...properties} />);
+    component.instance().getResult(properties.result);
+    expect(component.state("resultList").length).toEqual(1);
   });
   it(" should add to the list - function test", () => {
     const properties1 = { ...properties, option: { name: "Aditi" } };
@@ -68,10 +77,10 @@ describe("Dropdown Component", () => {
     expect(component.state("OptionList").length).toEqual(1);
   });
   it("Should check for add to list - button test", () => {
-    const addToList = shallow(<DropDown {...properties} />);
-    simulateFuncIcon(addToList);
-    simulateFuncList(addToList);
-    expect(addToList.state("OptionList").length).toEqual(1);
+    const component = shallow(<DropDown {...properties} />);
+    simulateFuncIcon(component);
+    simulateFuncList(component);
+    expect(component.state("OptionList").length).toEqual(1);
   });
   it("should check for icon AngleUp", () => {
     const properties1 = { ...properties, icon: faAngleUp };
