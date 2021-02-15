@@ -77,14 +77,11 @@ describe("Dropdown Component", () => {
     const properties1 = { ...properties, icon: faAngleUp };
     const icon = shallow(<DropDown {...properties1} />);
     simulateFuncIcon(icon);
-    simulateFuncList(icon);
-    expect(properties1.icon).toEqual(faAngleUp);
+    expect(properties1.icon).toBe(faAngleUp);
   });
   it("should check for class AngleDown", () => {
     const properties1 = { ...properties, icon: faAngleDown };
     const icon = shallow(<DropDown {...properties1} />);
-    simulateFuncIcon(icon);
-    simulateFuncList(icon);
     expect(properties1.icon).toEqual(faAngleDown);
   });
   it("should check for selected className", () => {
