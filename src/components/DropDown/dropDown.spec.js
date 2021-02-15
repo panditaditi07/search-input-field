@@ -75,21 +75,21 @@ describe("Dropdown Component", () => {
   });
   it("should check for icon AngleUp", () => {
     const properties1 = { ...properties, icon: faAngleUp };
-    const icon = shallow(<DropDown {...properties1} />);
-    simulateFuncIcon(icon);
-    expect(properties1.icon).toBe(faAngleUp);
+    const component = shallow(<DropDown {...properties1} />);
+    simulateFuncIcon(component);
+    expect(component.instance().props.icon["iconName"]).toBe("angle-up");
   });
   it("should check for class AngleDown", () => {
     const properties1 = { ...properties, icon: faAngleDown };
-    const icon = shallow(<DropDown {...properties1} />);
-    expect(properties1.icon).toEqual(faAngleDown);
+    const component = shallow(<DropDown {...properties1} />);
+    expect(component.instance().props.icon["iconName"]).toBe("angle-down");
   });
   it("should check for selected className", () => {
-    const selectedClass = shallow(<DropDown {...properties} />);
-    simulateFuncIcon(selectedClass);
-    simulateFuncList(selectedClass);
+    const component = shallow(<DropDown {...properties} />);
+    simulateFuncIcon(component);
+    simulateFuncList(component);
     expect(
-      selectedClass.find("button").first().hasClass("list-button selected")
+      component.find("button").first().hasClass("list-button selected")
     ).toEqual(true);
   });
 });
