@@ -97,6 +97,7 @@ describe("Dropdown Component", () => {
     const component = shallow(<DropDown {...properties} />);
     simulateFuncIcon(component);
     simulateFuncList(component);
+    simulateFuncIcon(component);
     expect(
       component.find("button").first().hasClass("list-button selected")
     ).toEqual(true);

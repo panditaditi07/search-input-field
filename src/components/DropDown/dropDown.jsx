@@ -25,13 +25,12 @@ class DropDown extends Component {
     // const { OptionList } = this.state;
     const { getList } = this.props;
     const options = [{ ...option }];
+    this.toggle();
     // const options = [...OptionList, { ...option }];
     this.setState({ OptionList: options }, () => {
-      this.toggle();
       getList(this.state.OptionList);
     });
   };
-
   hideList = (event) => {
     if (
       event.currentTarget.id === "dropdown-div" &&
