@@ -15,7 +15,7 @@
 .dropdownlist {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  // margin: 20px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -83,7 +83,26 @@
   font-size: 18px;
   cursor: pointer;
 }
+.selectAll {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  width: inherit;
+  height: inherit;
+  background: white;
+  font-size: inherit;
 
+  .selectAll-heading {
+    margin: 5px;
+  }
+  .check-icon {
+    margin: 5px;
+  }
+  .inside-selectAll {
+    border: 2px solid red;
+  }
+}
 .selected {
   background-color: #8cb3e6;
 }

@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom";
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,27 +13,45 @@ import styles from "./dropDown.module.scss";
 import propTypes from "prop-types";
 
 class DropDown extends Component {
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+  }
   state = {
     resultList: [],
     OptionList: [],
     showList: false,
     selectAll: false,
-    // selectAllOptions: [],
+    selectAllOptions: [],
   };
 
   getResult = (result) => {
     this.setState({ resultList: [...result] });
   };
-
+  handleChange = () => {
+    // this.textInput.current.focus();
+    document.getElementById("mytext").focus();
+    // if (output) {
+    //   return false;
+    // } else {
+    //   return true;
+    // }
+  };
   removeOption = (option) => {
-    const { OptionList } = this.state;
+    const { OptionList, selectAll } = this.state;
     const { showKey, getList } = this.props;
     let result = OptionList.filter((selectedoption) => {
       return selectedoption[showKey] !== option[showKey];
     });
+
     this.setState({ OptionList: result }, () => {
       getList(this.state.OptionList);
     });
+
+    if (result.length === 0 || result.length - 1) {
+      this.setState({ selectAll: false });
+    }
+    // this.isAllSelected();
   };
 
   removeSelectedOption = (option) => {
@@ -47,13 +66,16 @@ class DropDown extends Component {
     const result = data.map((options) => {
       return options;
     });
-    this.setState({ OptionList: result, selectAll: !selectAll }, () => {
-      if (selectAll === true) {
-        this.setState({ OptionList: [] });
+    this.setState(
+      { OptionList: result, selectAll: !selectAll, selectAllOptions: result },
+      () => {
+        if (selectAll === true) {
+          this.setState({ OptionList: [] });
+        } else {
+          this.setState({ OptionList: result });
+        }
       }
-    });
-
-    // this.isSelectedAll();
+    );
   };
 
   /**
@@ -64,12 +86,12 @@ class DropDown extends Component {
   addToList = (option) => {
     const { OptionList } = this.state;
     const { multipleSelect } = this.props;
-
     const options = [...OptionList, { ...option }];
-
     this.setState({ OptionList: options });
 
     if (!multipleSelect) {
+      this.setState({ OptionList: [{ ...option }] });
+
       const { getList } = this.props;
       getList(option);
       this.toggle();
@@ -77,11 +99,13 @@ class DropDown extends Component {
   };
 
   hideList = (event) => {
+    // console.log(e.currentTarget);
+    // console.log(e.target);
     if (
       event.currentTarget.id === "dropdown-div" &&
       !event.currentTarget.contains(event.relatedTarget)
     )
-      this.toggle();
+      this.setState({ showList: false });
   };
 
   /**
@@ -100,27 +124,40 @@ class DropDown extends Component {
       (options) => options[showKey] === option[showKey]
     );
   };
+  isAllSelected = () => {
+    // const { selectAll } = this.state;
+    // const { showKey } = this.props;
+
+    if (this.state.selectAllOptions.length === this.state.OptionList.length) {
+      return true;
+    } else if (!this.state.OptionList.length) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   /**
    * returns dropdown list
    */
   render() {
-    const { showList, resultList, OptionList, selectAllOptions } = this.state;
+    console.log(this.isAllSelected());
+    const {
+      showList,
+      resultList,
+      OptionList,
+      selectAllOptions,
+      selectAll,
+    } = this.state;
     const {
       placeholder,
       data,
       searchList,
       showKey,
       multipleSelect,
-      // selectAllOptions,
     } = this.props;
     const list = resultList.length ? resultList : data;
-    // console.log(this.addToList(list));
-    // console.log(OptionList);
-    // console.log(list);
-    // const selectedoption = OptionList.length
-    //   ? OptionList[0][showKey]
-    //   : placeholder;
+
     return (
       <>
         <div
@@ -145,7 +182,7 @@ class DropDown extends Component {
                             onClick={() => {
                               this.removeOption(optionSelected);
                             }}
-                            className={styles["removeSelectedIcon"]}
+                            className={styles["removeOption"]}
                             icon={faTimesCircle}
                           />
                         </div>
@@ -168,27 +205,41 @@ class DropDown extends Component {
           </div>
 
           {showList && (
-            <div id="lists" className={`${styles["dropdownlist"]}`}>
-              <div className={styles["selectAll"]} onClick={this.selectAllData}>
-                {multipleSelect ? (
-                  <FontAwesomeIcon
-                    color="#3483eb"
-                    size="2x"
-                    icon={!this.state.selectAll ? faSquare : faCheckSquare}
-                  />
-                ) : (
-                  <></>
-                )}
-                select All
+            <div
+              id="lists"
+              className={`${styles["dropdownlist"]}`}
+              onBlur={this.hideList}
+            >
+              <div id="mytext">
+                <SearchBox
+                  data={data}
+                  result={this.getResult}
+                  searchkeys={searchList.searchkeys}
+                  placeholder={placeholder}
+                  className={styles["searchbar"]}
+                />
               </div>
+              {this.isAllSelected() && this.handleChange() ? (
+                <div
+                  className={styles["selectAll"]}
+                  onClick={this.selectAllData}
+                >
+                  {multipleSelect ? (
+                    <FontAwesomeIcon
+                      className={styles["check-icon"]}
+                      color="#3483eb"
+                      size="2x"
+                      icon={selectAll ? faCheckSquare : faSquare}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                  <p className={styles["selectAll-heading"]}>Select All</p>
+                </div>
+              ) : (
+                <></>
+              )}
 
-              <SearchBox
-                data={data}
-                result={this.getResult}
-                searchkeys={searchList.searchkeys}
-                placeholder={placeholder}
-                className={styles["searchbar"]}
-              />
               {list.map((option, i) => {
                 return (
                   <div

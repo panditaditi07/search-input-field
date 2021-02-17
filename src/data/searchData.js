@@ -19,26 +19,6 @@ export const searchData = [
     name: "Talib",
     description: "Some description",
   },
-  {
-    id: "5",
-    name: "Chuck",
-    description: "Some description",
-  },
-  {
-    id: "6",
-    name: "Blair",
-    description: "Some description",
-  },
-  {
-    id: "7",
-    name: "Serena",
-    description: "Some description",
-  },
-  {
-    id: "8",
-    name: "Nate",
-    description: "Some description",
-  },
 ];
 
 // export const searchData = [
