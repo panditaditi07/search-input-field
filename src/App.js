@@ -34,6 +34,7 @@ class App extends Component {
             data={searchData}
             getList={this.getList}
             showKey="name"
+            multipleSelect={true}
             placeholder="Search"
             searchList={{ searchkeys: ["name"] }}
           />

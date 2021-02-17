@@ -13,7 +13,6 @@ class SearchBox extends Component {
   };
   handleChange = (event) => {
     this.setState({ searchField: event.target.value });
-    this.props.onChange(this.state.searchField);
   };
 
   /**
