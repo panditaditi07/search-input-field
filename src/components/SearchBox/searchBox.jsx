@@ -33,6 +33,7 @@ class SearchBox extends Component {
           return;
         }
         if (
+          searchField.length &&
           getData[searchkey].toLowerCase().includes(searchField.toLowerCase())
         ) {
           result.push(getData);
