@@ -1,4 +1,3 @@
-import ReactDOM from "react-dom";
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,38 +6,56 @@ import {
   faTimesCircle,
   faCheckSquare,
   faSquare,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import SearchBox from "../SearchBox/searchBox";
 import styles from "./dropDown.module.scss";
 import propTypes from "prop-types";
 
 class DropDown extends Component {
-  constructor(props) {
-    super(props);
-    this.textInput = React.createRef();
-  }
   state = {
     resultList: [],
     OptionList: [],
     showList: false,
     selectAll: false,
+    searchBarFocus: true,
     selectAllOptions: [],
   };
-
+  /**
+   *
+   * @param {result} result
+   * stores the result
+   */
   getResult = (result) => {
     this.setState({ resultList: [...result] });
   };
-  handleChange = () => {
-    // this.textInput.current.focus();
-    document.getElementById("mytext").focus();
-    // if (output) {
-    //   return false;
-    // } else {
-    //   return true;
-    // }
+  /**
+   *
+   * @param {event} event
+   * focuses on searchBar
+   */
+  onSearchFocus = (event) => {
+    const { searchBarFocus } = this.state;
+    if (
+      event.currentTarget.id === "searchInput" &&
+      !event.currentTarget.contains(event.relatedTarget)
+    ) {
+      this.setState({ searchBarFocus: !searchBarFocus });
+    }
   };
+  /**
+   * removes all selected Options
+   */
+  removeAllOption = () => {
+    this.setState({ OptionList: [], selectAll: false });
+  };
+  /**
+   *
+   * @param {option} option
+   * removes selected options
+   */
   removeOption = (option) => {
-    const { OptionList, selectAll } = this.state;
+    const { OptionList } = this.state;
     const { showKey, getList } = this.props;
     let result = OptionList.filter((selectedoption) => {
       return selectedoption[showKey] !== option[showKey];
@@ -51,15 +68,23 @@ class DropDown extends Component {
     if (result.length === 0 || result.length - 1) {
       this.setState({ selectAll: false });
     }
-    // this.isAllSelected();
   };
+  /**
+   *
+   * @param {option} option
+   * if the option is selected it removes it
+   * and if the option is not selected it adds
+   * to the list.
+   */
 
   removeSelectedOption = (option) => {
     this.isSelected(option)
       ? this.removeOption(option)
       : this.addToList(option);
   };
-
+  /**
+   * it returns the select All data and sets the states.
+   */
   selectAllData = () => {
     const { data } = this.props;
     const { selectAll } = this.state;
@@ -97,15 +122,23 @@ class DropDown extends Component {
       this.toggle();
     }
   };
-
+  /**
+   *
+   * @param {event} event
+   * it hides the list when out of Focus
+   */
   hideList = (event) => {
-    // console.log(e.currentTarget);
-    // console.log(e.target);
+    const { multipleSelect, getList } = this.props;
+    const { OptionList } = this.state;
     if (
       event.currentTarget.id === "dropdown-div" &&
       !event.currentTarget.contains(event.relatedTarget)
-    )
-      this.setState({ showList: false });
+    ) {
+      this.toggle();
+      if (multipleSelect && OptionList.length) {
+        getList(OptionList);
+      }
+    }
   };
 
   /**
@@ -124,10 +157,11 @@ class DropDown extends Component {
       (options) => options[showKey] === option[showKey]
     );
   };
+  /**
+   * it checks for selectAllOptions & OptionList length and
+   * returns true else true false
+   */
   isAllSelected = () => {
-    // const { selectAll } = this.state;
-    // const { showKey } = this.props;
-
     if (this.state.selectAllOptions.length === this.state.OptionList.length) {
       return true;
     } else if (!this.state.OptionList.length) {
@@ -146,8 +180,8 @@ class DropDown extends Component {
       showList,
       resultList,
       OptionList,
-      selectAllOptions,
       selectAll,
+      searchBarFocus,
     } = this.state;
     const {
       placeholder,
@@ -161,12 +195,12 @@ class DropDown extends Component {
     return (
       <>
         <div
+          tabIndex="0"
           id="dropdown-div"
           onBlur={this.hideList}
           className={styles["dropdown-div"]}
           data-test="DropdownComponent"
         >
-          <h2 className={styles["heading"]}>DropDown Menu</h2>
           <div className={styles["dropdown-button"]}>
             <div className={styles["button-heading"]}>
               {OptionList.length ? (
@@ -196,12 +230,23 @@ class DropDown extends Component {
                 <>{placeholder}</>
               )}
             </div>
-            <FontAwesomeIcon
-              onClick={this.toggle}
-              data-test="icon"
-              icon={showList ? faAngleUp : faAngleDown}
-              className={styles["icon"]}
-            />
+            <div className={styles["icons"]}>
+              {OptionList.length ? (
+                <FontAwesomeIcon
+                  className={styles["removeIcon"]}
+                  onClick={this.removeAllOption}
+                  icon={faTimes}
+                />
+              ) : (
+                <></>
+              )}
+              <FontAwesomeIcon
+                onClick={this.toggle}
+                data-test="icon"
+                icon={showList ? faAngleUp : faAngleDown}
+                className={styles["icon"]}
+              />
+            </div>
           </div>
 
           {showList && (
@@ -210,7 +255,11 @@ class DropDown extends Component {
               className={`${styles["dropdownlist"]}`}
               onBlur={this.hideList}
             >
-              <div id="mytext">
+              <div
+                id="searchInput"
+                className={styles["searchBar-div"]}
+                onFocus={this.onSearchFocus}
+              >
                 <SearchBox
                   data={data}
                   result={this.getResult}
@@ -219,7 +268,7 @@ class DropDown extends Component {
                   className={styles["searchbar"]}
                 />
               </div>
-              {this.isAllSelected() && this.handleChange() ? (
+              {multipleSelect && this.isAllSelected() && searchBarFocus ? (
                 <div
                   className={styles["selectAll"]}
                   onClick={this.selectAllData}
@@ -304,71 +353,10 @@ DropDown.propTypes = {
    * will give the result
    */
   getList: propTypes.func.isRequired,
+  multipleSelect: propTypes.bool,
 };
 
 DropDown.defaultProps = {
   placeholder: "",
 };
 export default DropDown;
-
-// render() {
-//     const { showList, resultList, OptionList } = this.state;
-//     const { placeholder, data, searchList, showKey } = this.props;
-//     const list = resultList.length ? resultList : data;
-//     const selectedoption = OptionList.length
-//       ? OptionList[0][showKey]
-//       : placeholder;
-//     return (
-//       <>
-//         <div
-//           id="dropdown-div"
-//           onBlur={this.hideList}
-//           className={styles["dropdown-div"]}
-//           data-test="DropdownComponent"
-//         >
-//           <h2 className={styles["heading"]}>DropDown Menu</h2>
-//           <div className={styles["dropdown-button"]}>
-//             <p className={styles["button-heading"]}>{selectedoption}</p>
-//             <FontAwesomeIcon
-//               onClick={this.toggle}
-//               data-test="icon"
-//               icon={showList ? faAngleUp : faAngleDown}
-//               className={styles["icon"]}
-//             />
-//           </div>
-//           {showList && (
-//             <div id="lists" className={`${styles["dropdownlist"]}`}>
-//               <SearchBox
-//                 data={data}
-//                 result={this.getResult}
-//                 searchkeys={searchList.searchkeys}
-//                 placeholder={placeholder}
-//                 className={styles["searchbar"]}
-//               />
-//               {list.map((option, i) => {
-//                 return (
-//                   <div
-//                     className={styles["lists"]}
-//                     key={i}
-//                     onClick={() => {
-//                       this.addToList(option);
-//                     }}
-//                     data-test="list"
-//                   >
-//                     <button
-//                       className={`${styles["list-button"]} ${
-//                         styles[this.isSelected(option) ? "selected" : ""]
-//                       }`}
-//                     >
-//                       {option[showKey]}
-//                     </button>
-//                   </div>
-//                 );
-//               })}
-//             </div>
-//           )}
-//         </div>
-//       </>
-//     );
-//   }
-// }

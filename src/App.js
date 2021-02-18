@@ -30,6 +30,8 @@ class App extends Component {
               console.log("res", value);
             }}
           /> */}
+          <h2 className="heading">DropDown Menu</h2>
+
           <DropDown
             data={searchData}
             getList={this.getList}
