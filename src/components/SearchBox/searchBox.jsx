@@ -29,6 +29,7 @@ class SearchBox extends Component {
           return;
         }
         if (
+          this.state.searchField.length &&
           getData[searchkey]
             .toLowerCase()
             .includes(this.state.searchField.toLowerCase())

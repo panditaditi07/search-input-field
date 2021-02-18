@@ -18,8 +18,6 @@ class DropDown extends Component {
     OptionList: [],
     showList: false,
     selectAll: false,
-    searchBarFocus: true,
-    selectAllOptions: [],
   };
 
   /**
@@ -35,26 +33,6 @@ class DropDown extends Component {
    * @param {event} event
    * focuses on searchBar
    */
-  onSearchFocus = (event) => {
-    // const { searchBarFocus } = this.state;
-    if (
-      event.currentTarget.id === "searchInput" &&
-      !event.currentTarget.contains(event.relatedTarget)
-    ) {
-      this.setState({ searchBarFocus: false });
-      // this.setState({ searchBarFocus: true });
-    }
-  };
-  onSearchBlur = (event) => {
-    // const { searchBarFocus } = this.state;
-    if (
-      event.currentTarget.id === "searchInput" &&
-      !event.currentTarget.contains(event.relatedTarget)
-    ) {
-      this.setState({ searchBarFocus: true });
-      // this.setState({ searchBarFocus: false });
-    }
-  };
 
   /**
    * removes all selected Options
@@ -96,6 +74,7 @@ class DropDown extends Component {
       ? this.removeOption(option)
       : this.addToList(option);
   };
+
   /**
    * it returns the select All data and sets the states.
    */
@@ -105,16 +84,13 @@ class DropDown extends Component {
     const result = data.map((options) => {
       return options;
     });
-    this.setState(
-      { OptionList: result, selectAll: !selectAll, selectAllOptions: result },
-      () => {
-        if (selectAll === true) {
-          this.setState({ OptionList: [] });
-        } else {
-          this.setState({ OptionList: result });
-        }
+    this.setState({ OptionList: result, selectAll: !selectAll }, () => {
+      if (selectAll === true) {
+        this.setState({ OptionList: [] });
+      } else {
+        this.setState({ OptionList: result });
       }
-    );
+    });
   };
 
   /**
@@ -142,6 +118,8 @@ class DropDown extends Component {
    * it hides the list when out of Focus
    */
   hideList = (event) => {
+    console.log(event.currentTarget.id === "dropdown-div");
+    console.log("Running");
     const { multipleSelect, getList } = this.props;
     const { OptionList } = this.state;
     if (
@@ -176,12 +154,17 @@ class DropDown extends Component {
    * returns true else true false
    */
   isAllSelected = () => {
-    if (this.state.selectAllOptions.length === this.state.OptionList.length) {
-      return true;
-    } else if (!this.state.OptionList.length) {
-      return true;
+    if (this.state.resultList.length) return false;
+    return true;
+  };
+  FocusDiv = (event) => {
+    if (
+      event.currentTarget.id === "dropdown-button" &&
+      !event.currentTarget.contains(event.relatedTarget)
+    ) {
+      this.setState({ showList: true });
     } else {
-      return false;
+      this.toggle();
     }
   };
 
@@ -189,14 +172,8 @@ class DropDown extends Component {
    * returns dropdown list
    */
   render() {
-    console.log(this.isAllSelected());
-    const {
-      showList,
-      resultList,
-      OptionList,
-      selectAll,
-      searchBarFocus,
-    } = this.state;
+    console.log(this.state.resultList);
+    const { showList, resultList, OptionList, selectAll } = this.state;
     const {
       placeholder,
       data,
@@ -209,13 +186,18 @@ class DropDown extends Component {
     return (
       <>
         <div
-          tabIndex="0"
+          tabIndex="1"
           id="dropdown-div"
           onBlur={this.hideList}
           className={styles["dropdown-div"]}
           data-test="DropdownComponent"
         >
-          <div className={styles["dropdown-button"]}>
+          <div
+            tabIndex="0"
+            className={styles["dropdown-button"]}
+            id="dropdown-button"
+            onFocus={this.FocusDiv}
+          >
             <div className={styles["button-heading"]}>
               {OptionList.length ? (
                 <div className={styles["selectedOptions"]}>
@@ -279,11 +261,11 @@ class DropDown extends Component {
                   data={data}
                   result={this.getResult}
                   searchkeys={searchList.searchkeys}
-                  placeholder={placeholder}
+                  placeholder={searchList.placeholder}
                   className={styles["searchbar"]}
                 />
               </div>
-              {multipleSelect && this.isAllSelected() && searchBarFocus ? (
+              {multipleSelect && this.isAllSelected() ? (
                 <div
                   className={styles["selectAll"]}
                   onClick={this.selectAllData}
@@ -307,7 +289,6 @@ class DropDown extends Component {
               {list.map((option, i) => {
                 return (
                   <div
-                    // tabIndex="-1"
                     className={styles["lists"]}
                     key={i}
                     onClick={() => {

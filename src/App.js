@@ -37,8 +37,8 @@ class App extends Component {
             getList={this.getList}
             showKey="name"
             multipleSelect={true}
-            placeholder="Search"
-            searchList={{ searchkeys: ["name"] }}
+            placeholder="Select"
+            searchList={{ searchkeys: ["name"], placeholder: "Search" }}
           />
         </div>
       </>
