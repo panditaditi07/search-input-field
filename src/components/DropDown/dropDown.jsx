@@ -21,6 +21,7 @@ class DropDown extends Component {
     searchBarFocus: true,
     selectAllOptions: [],
   };
+
   /**
    *
    * @param {result} result
@@ -35,20 +36,33 @@ class DropDown extends Component {
    * focuses on searchBar
    */
   onSearchFocus = (event) => {
-    const { searchBarFocus } = this.state;
+    // const { searchBarFocus } = this.state;
     if (
       event.currentTarget.id === "searchInput" &&
       !event.currentTarget.contains(event.relatedTarget)
     ) {
-      this.setState({ searchBarFocus: !searchBarFocus });
+      this.setState({ searchBarFocus: false });
+      // this.setState({ searchBarFocus: true });
     }
   };
+  onSearchBlur = (event) => {
+    // const { searchBarFocus } = this.state;
+    if (
+      event.currentTarget.id === "searchInput" &&
+      !event.currentTarget.contains(event.relatedTarget)
+    ) {
+      this.setState({ searchBarFocus: true });
+      // this.setState({ searchBarFocus: false });
+    }
+  };
+
   /**
    * removes all selected Options
    */
   removeAllOption = () => {
     this.setState({ OptionList: [], selectAll: false });
   };
+
   /**
    *
    * @param {option} option
@@ -259,6 +273,7 @@ class DropDown extends Component {
                 id="searchInput"
                 className={styles["searchBar-div"]}
                 onFocus={this.onSearchFocus}
+                onBlur={this.onSearchBlur}
               >
                 <SearchBox
                   data={data}
@@ -292,6 +307,7 @@ class DropDown extends Component {
               {list.map((option, i) => {
                 return (
                   <div
+                    // tabIndex="-1"
                     className={styles["lists"]}
                     key={i}
                     onClick={() => {
