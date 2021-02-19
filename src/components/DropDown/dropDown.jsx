@@ -153,10 +153,15 @@ class DropDown extends Component {
    * returns true else true false
    */
   isAllSelected = () => {
+    // if (this.state.resultList.length) return false;
+    // return true;
     if (this.state.resultList.length) return false;
+
     return true;
   };
-
+  /**
+   * toggles the dropdown menu
+   */
   dropDownToggle = () => {
     const { OptionList, showDropdown } = this.state;
 
@@ -192,7 +197,10 @@ class DropDown extends Component {
           data-test="DropdownComponent"
         >
           <div
-            className={styles["dropdown-button"]}
+            // className={styles["dropdown-button"]}
+            className={`${styles["dropdown-button"]} ${
+              styles[OptionList.length > 10 ? "adjustheight" : ""]
+            }`}
             onClick={this.dropDownToggle}
           >
             <div className={styles["button-heading"]}>
