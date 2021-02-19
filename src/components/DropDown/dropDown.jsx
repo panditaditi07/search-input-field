@@ -16,9 +16,10 @@ class DropDown extends Component {
   state = {
     resultList: [],
     OptionList: [],
+    selectAllOptions: [],
     showList: false,
     selectAll: false,
-    showDropdown: false,
+    hideList: false,
   };
 
   /**
@@ -85,13 +86,16 @@ class DropDown extends Component {
     const result = data.map((options) => {
       return options;
     });
-    this.setState({ OptionList: result, selectAll: !selectAll }, () => {
-      if (selectAll === true) {
-        this.setState({ OptionList: [] });
-      } else {
-        this.setState({ OptionList: result });
+    this.setState(
+      { OptionList: result, selectAll: !selectAll, selectAllOptions: result },
+      () => {
+        if (selectAll === true) {
+          this.setState({ OptionList: [] });
+        } else {
+          this.setState({ OptionList: result });
+        }
       }
-    });
+    );
   };
 
   /**
@@ -126,9 +130,12 @@ class DropDown extends Component {
       !event.currentTarget.contains(event.relatedTarget)
     ) {
       this.toggle();
-      if (multipleSelect && OptionList.length) {
-        getList(OptionList);
-      }
+
+      this.setState({ hideList: !this.state.hideList });
+    }
+
+    if (multipleSelect && OptionList.length) {
+      getList(OptionList);
     }
   };
 
@@ -153,23 +160,26 @@ class DropDown extends Component {
    * returns true else true false
    */
   isAllSelected = () => {
-    // if (this.state.resultList.length) return false;
-    // return true;
     if (this.state.resultList.length) return false;
-
     return true;
   };
   /**
    * toggles the dropdown menu
    */
-  dropDownToggle = () => {
-    const { OptionList, showDropdown } = this.state;
 
-    if (OptionList.length) {
-      this.setState({ showList: true });
-    } else {
+  noResults = () => {
+    if (this.state.resultList === ["No results"]) return true;
+    else {
+      return false;
+    }
+  };
+
+  DropDownToggle = () => {
+    const { OptionList } = this.state;
+    if (!OptionList.length) {
       this.toggle();
-      this.setState({ showDropdown: showDropdown });
+    } else if (this.state.hideList && OptionList.length) {
+      this.setState({ showList: false });
     }
   };
 
@@ -193,15 +203,16 @@ class DropDown extends Component {
           tabIndex="0"
           id="dropdown-div"
           onBlur={this.hideList}
+          // onFocus={this.handleFocus}
           className={styles["dropdown-div"]}
           data-test="DropdownComponent"
         >
           <div
             // className={styles["dropdown-button"]}
+            onClick={this.DropDownToggle}
             className={`${styles["dropdown-button"]} ${
               styles[OptionList.length > 10 ? "adjustheight" : ""]
             }`}
-            onClick={this.dropDownToggle}
           >
             <div className={styles["button-heading"]}>
               {OptionList.length ? (
@@ -270,6 +281,7 @@ class DropDown extends Component {
                   className={styles["searchbar"]}
                 />
               </div>
+
               {multipleSelect && this.isAllSelected() ? (
                 <div
                   className={styles["selectAll"]}
@@ -362,3 +374,71 @@ DropDown.defaultProps = {
   placeholder: "Select",
 };
 export default DropDown;
+
+/* {list.map((option, i) => {
+  return (
+    <div
+      className={styles["lists"]}
+      key={i}
+      onClick={() => {
+        this.removeSelectedOption(option);
+      }}
+      data-test="list"
+    >
+      {multipleSelect ? (
+        <FontAwesomeIcon
+          color="#3483eb"
+          size="2x"
+          icon={
+            this.isSelected(option) ? faCheckSquare : faSquare
+          }
+        />
+      ) : (
+        <></>
+      )}
+      <button
+        className={`${styles["list-button"]} ${
+          styles[this.isSelected(option) ? "selected" : ""]
+        }`}
+      >
+        {option[showKey]}
+      </button>
+    </div>
+  );
+})} */
+
+// {
+//   this.noResults() ? (
+//     list.map((option, i) => {
+//       return (
+//         <div
+//           className={styles["lists"]}
+//           key={i}
+//           onClick={() => {
+//             this.removeSelectedOption(option);
+//           }}
+//           data-test="list"
+//         >
+//           {multipleSelect ? (
+//             <FontAwesomeIcon
+//               color="#3483eb"
+//               size="2x"
+//               icon={this.isSelected(option) ? faCheckSquare : faSquare}
+//             />
+//           ) : (
+//             <></>
+//           )}
+//           <button
+//             className={`${styles["list-button"]} ${
+//               styles[this.isSelected(option) ? "selected" : ""]
+//             }`}
+//           >
+//             {option[showKey]}
+//           </button>
+//         </div>
+//       );
+//     })
+//   ) : (
+//     <div>No results</div>
+//   );
+// }

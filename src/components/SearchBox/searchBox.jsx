@@ -21,6 +21,7 @@ class SearchBox extends Component {
    */
   searchKeys = () => {
     let data = this.props.data;
+    const { searchField } = this.state;
     let result = [];
     let searchkeys = this.props.searchkeys;
     searchkeys.forEach((searchkey) => {
@@ -29,16 +30,17 @@ class SearchBox extends Component {
           return;
         }
         if (
-          this.state.searchField.length &&
-          getData[searchkey]
-            .toLowerCase()
-            .includes(this.state.searchField.toLowerCase())
+          searchField.length &&
+          getData[searchkey].toLowerCase().includes(searchField.toLowerCase())
         ) {
           result.push(getData);
         }
+        // if (searchField !== getData[searchkey]) {
+        //   result.push(["No results"]);
+        // }
       });
     });
-
+    console.log(result);
     this.props.result(result);
   };
   render() {
