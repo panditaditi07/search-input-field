@@ -12,7 +12,9 @@ class SearchBox extends Component {
     if (prevState.searchField !== this.state.searchField) this.searchKeys();
   };
   handleChange = (event) => {
-    this.setState({ searchField: event.target.value });
+    this.setState({ searchField: event.target.value }, () => {
+      this.props.onChange(this.state.searchField);
+    });
   };
 
   /**
@@ -35,11 +37,9 @@ class SearchBox extends Component {
         ) {
           result.push(getData);
         }
-        // if (searchField !== getData[searchkey]) {
-        //   result.push(["No results"]);
-        // }
       });
     });
+
     console.log(result);
     this.props.result(result);
   };

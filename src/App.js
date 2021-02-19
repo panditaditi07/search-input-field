@@ -12,6 +12,9 @@ class App extends Component {
   getList = (result) => {
     console.log(result);
   };
+  getSearchInput = (searchInput) => {
+    console.log(searchInput);
+  };
   /**
    * Use searchBar component to Search the data
    */
@@ -39,6 +42,7 @@ class App extends Component {
             multipleSelect={true}
             placeholder="Select"
             searchList={{ searchkeys: ["name"], placeholder: "Search" }}
+            onChange={this.getSearchInput}
           />
         </div>
       </>

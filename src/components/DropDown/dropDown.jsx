@@ -7,6 +7,7 @@ import {
   faCheckSquare,
   faSquare,
   faTimes,
+  faIgloo,
 } from "@fortawesome/free-solid-svg-icons";
 import SearchBox from "../SearchBox/searchBox";
 import styles from "./dropDown.module.scss";
@@ -20,8 +21,12 @@ class DropDown extends Component {
     showList: false,
     selectAll: false,
     hideList: false,
+    searchInput: "",
   };
 
+  handleChange = (onChange) => {
+    this.setState({ searchInput: onChange });
+  };
   /**
    *
    * @param {result} result
@@ -182,11 +187,29 @@ class DropDown extends Component {
       this.setState({ showList: false });
     }
   };
+  /**
+   * checks for no result
+   */
+  noResults = () => {
+    const { showKey } = this.props;
+    const result = this.state.resultList.some(
+      (options) => this.state.searchInput !== options[showKey]
+    );
 
+    if (result === false && !this.state.searchInput.length) {
+      return true;
+    }
+    if (result === true) {
+      return true;
+    } else if (result === false) {
+      return false;
+    }
+  };
   /**
    * returns dropdown list
    */
   render() {
+    console.log(this.state.resultList);
     const { showList, resultList, OptionList, selectAll } = this.state;
     const {
       placeholder,
@@ -203,7 +226,6 @@ class DropDown extends Component {
           tabIndex="0"
           id="dropdown-div"
           onBlur={this.hideList}
-          // onFocus={this.handleFocus}
           className={styles["dropdown-div"]}
           data-test="DropdownComponent"
         >
@@ -279,61 +301,69 @@ class DropDown extends Component {
                   searchkeys={searchList.searchkeys}
                   placeholder={searchList.placeholder}
                   className={styles["searchbar"]}
+                  onChange={this.handleChange}
                 />
               </div>
-
-              {multipleSelect && this.isAllSelected() ? (
-                <div
-                  className={styles["selectAll"]}
-                  onClick={this.selectAllData}
-                >
-                  {multipleSelect ? (
-                    <FontAwesomeIcon
-                      className={styles["check-icon"]}
-                      color="#3483eb"
-                      size="2x"
-                      icon={selectAll ? faCheckSquare : faSquare}
-                    />
+              {this.noResults() ? (
+                <div className={styles["allListDiv"]}>
+                  {multipleSelect && this.isAllSelected() ? (
+                    <div
+                      className={styles["selectAll"]}
+                      onClick={this.selectAllData}
+                    >
+                      {multipleSelect ? (
+                        <FontAwesomeIcon
+                          className={styles["check-icon"]}
+                          color="#3483eb"
+                          size="2x"
+                          icon={selectAll ? faCheckSquare : faSquare}
+                        />
+                      ) : (
+                        <></>
+                      )}
+                      <p className={styles["selectAll-heading"]}>Select All</p>
+                    </div>
                   ) : (
                     <></>
                   )}
-                  <p className={styles["selectAll-heading"]}>Select All</p>
+
+                  {list.map((option, i) => {
+                    return (
+                      <div
+                        className={styles["lists"]}
+                        key={i}
+                        onClick={() => {
+                          this.removeSelectedOption(option);
+                        }}
+                        data-test="list"
+                      >
+                        {multipleSelect ? (
+                          <FontAwesomeIcon
+                            color="#3483eb"
+                            size="2x"
+                            icon={
+                              this.isSelected(option) ? faCheckSquare : faSquare
+                            }
+                          />
+                        ) : (
+                          <></>
+                        )}
+                        <button
+                          className={`${styles["list-button"]} ${
+                            styles[this.isSelected(option) ? "selected" : ""]
+                          }`}
+                        >
+                          {option[showKey]}
+                        </button>
+                      </div>
+                    );
+                  })}
                 </div>
               ) : (
-                <></>
+                <div className={styles["no-result"]}>
+                  <i>No results</i>
+                </div>
               )}
-
-              {list.map((option, i) => {
-                return (
-                  <div
-                    className={styles["lists"]}
-                    key={i}
-                    onClick={() => {
-                      this.removeSelectedOption(option);
-                    }}
-                    data-test="list"
-                  >
-                    {multipleSelect ? (
-                      <FontAwesomeIcon
-                        color="#3483eb"
-                        size="2x"
-                        icon={
-                          this.isSelected(option) ? faCheckSquare : faSquare
-                        }
-                      />
-                    ) : (
-                      <></>
-                    )}
-                    <button
-                      className={`${styles["list-button"]} ${
-                        styles[this.isSelected(option) ? "selected" : ""]
-                      }`}
-                    >
-                      {option[showKey]}
-                    </button>
-                  </div>
-                );
-              })}
             </div>
           )}
         </div>
@@ -374,71 +404,3 @@ DropDown.defaultProps = {
   placeholder: "Select",
 };
 export default DropDown;
-
-/* {list.map((option, i) => {
-  return (
-    <div
-      className={styles["lists"]}
-      key={i}
-      onClick={() => {
-        this.removeSelectedOption(option);
-      }}
-      data-test="list"
-    >
-      {multipleSelect ? (
-        <FontAwesomeIcon
-          color="#3483eb"
-          size="2x"
-          icon={
-            this.isSelected(option) ? faCheckSquare : faSquare
-          }
-        />
-      ) : (
-        <></>
-      )}
-      <button
-        className={`${styles["list-button"]} ${
-          styles[this.isSelected(option) ? "selected" : ""]
-        }`}
-      >
-        {option[showKey]}
-      </button>
-    </div>
-  );
-})} */
-
-// {
-//   this.noResults() ? (
-//     list.map((option, i) => {
-//       return (
-//         <div
-//           className={styles["lists"]}
-//           key={i}
-//           onClick={() => {
-//             this.removeSelectedOption(option);
-//           }}
-//           data-test="list"
-//         >
-//           {multipleSelect ? (
-//             <FontAwesomeIcon
-//               color="#3483eb"
-//               size="2x"
-//               icon={this.isSelected(option) ? faCheckSquare : faSquare}
-//             />
-//           ) : (
-//             <></>
-//           )}
-//           <button
-//             className={`${styles["list-button"]} ${
-//               styles[this.isSelected(option) ? "selected" : ""]
-//             }`}
-//           >
-//             {option[showKey]}
-//           </button>
-//         </div>
-//       );
-//     })
-//   ) : (
-//     <div>No results</div>
-//   );
-// }
