@@ -359,6 +359,6 @@ DropDown.propTypes = {
 };
 
 DropDown.defaultProps = {
-  placeholder: "",
+  placeholder: "Select",
 };
 export default DropDown;
