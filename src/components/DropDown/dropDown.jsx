@@ -157,11 +157,10 @@ class DropDown extends Component {
     if (this.state.resultList.length) return false;
     return true;
   };
-  FocusDiv = (event) => {
-    if (
-      event.currentTarget.id === "dropdown-button" &&
-      !event.currentTarget.contains(event.relatedTarget)
-    ) {
+
+  dropDownToggle = () => {
+    const { OptionList } = this.state;
+    if (OptionList.length) {
       this.setState({ showList: true });
     } else {
       this.toggle();
@@ -186,17 +185,15 @@ class DropDown extends Component {
     return (
       <>
         <div
-          tabIndex="1"
+          tabIndex="0"
           id="dropdown-div"
           onBlur={this.hideList}
           className={styles["dropdown-div"]}
           data-test="DropdownComponent"
         >
           <div
-            tabIndex="0"
             className={styles["dropdown-button"]}
-            id="dropdown-button"
-            onFocus={this.FocusDiv}
+            onClick={this.dropDownToggle}
           >
             <div className={styles["button-heading"]}>
               {OptionList.length ? (
