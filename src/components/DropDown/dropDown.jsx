@@ -18,6 +18,7 @@ class DropDown extends Component {
     OptionList: [],
     showList: false,
     selectAll: false,
+    showDropdown: false,
   };
 
   /**
@@ -118,8 +119,6 @@ class DropDown extends Component {
    * it hides the list when out of Focus
    */
   hideList = (event) => {
-    console.log(event.currentTarget.id === "dropdown-div");
-    console.log("Running");
     const { multipleSelect, getList } = this.props;
     const { OptionList } = this.state;
     if (
@@ -159,11 +158,13 @@ class DropDown extends Component {
   };
 
   dropDownToggle = () => {
-    const { OptionList } = this.state;
+    const { OptionList, showDropdown } = this.state;
+
     if (OptionList.length) {
       this.setState({ showList: true });
     } else {
       this.toggle();
+      this.setState({ showDropdown: showDropdown });
     }
   };
 
@@ -171,7 +172,6 @@ class DropDown extends Component {
    * returns dropdown list
    */
   render() {
-    console.log(this.state.resultList);
     const { showList, resultList, OptionList, selectAll } = this.state;
     const {
       placeholder,
