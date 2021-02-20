@@ -135,6 +135,8 @@ class DropDown extends Component {
     ) {
       this.toggle();
 
+      this.setState({ hideList: true });
+    } else {
       this.setState({ hideList: !this.state.hideList });
     }
 
