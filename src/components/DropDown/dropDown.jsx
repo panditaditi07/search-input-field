@@ -7,7 +7,6 @@ import {
   faCheckSquare,
   faSquare,
   faTimes,
-  faIgloo,
 } from "@fortawesome/free-solid-svg-icons";
 import SearchBox from "../SearchBox/searchBox";
 import styles from "./dropDown.module.scss";
@@ -17,7 +16,7 @@ class DropDown extends Component {
   state = {
     resultList: [],
     OptionList: [],
-    selectAllOptions: [],
+
     showList: false,
     selectAll: false,
     hideList: false,
@@ -46,6 +45,9 @@ class DropDown extends Component {
    */
   removeAllOption = () => {
     this.setState({ OptionList: [], selectAll: false });
+    if (this.state.OptionList.length && this.state.hideList === true) {
+      this.setState({ showList: true });
+    }
   };
 
   /**
@@ -91,16 +93,13 @@ class DropDown extends Component {
     const result = data.map((options) => {
       return options;
     });
-    this.setState(
-      { OptionList: result, selectAll: !selectAll, selectAllOptions: result },
-      () => {
-        if (selectAll === true) {
-          this.setState({ OptionList: [] });
-        } else {
-          this.setState({ OptionList: result });
-        }
+    this.setState({ OptionList: result, selectAll: !selectAll }, () => {
+      if (selectAll === true) {
+        this.setState({ OptionList: [] });
+      } else {
+        this.setState({ OptionList: result });
       }
-    );
+    });
   };
 
   /**
@@ -230,7 +229,6 @@ class DropDown extends Component {
           data-test="DropdownComponent"
         >
           <div
-            // className={styles["dropdown-button"]}
             onClick={this.DropDownToggle}
             className={`${styles["dropdown-button"]} ${
               styles[OptionList.length > 10 ? "adjustheight" : ""]
