@@ -16,7 +16,6 @@ class DropDown extends Component {
   state = {
     resultList: [],
     OptionList: [],
-
     showList: false,
     selectAll: false,
     hideList: false,
@@ -173,22 +172,22 @@ class DropDown extends Component {
    */
 
   DropDownToggle = () => {
-    const { OptionList, resultList } = this.state;
-    if (!OptionList.length) {
-      this.toggle();
-    } else if (this.state.hideList === true) {
-      if (OptionList.length--) {
-        this.setState({ showList: false });
-      } else {
-        this.toggle();
-      }
-    } else if (this.state.hideList === false && OptionList.length) {
-      this.setState({ showList: true });
-    } else if (
-      this.state.hideList === false &&
+    const { OptionList, resultList, hideList, showList } = this.state;
+    this.toggle();
+
+    if (
+      (hideList === true || hideList === false) &&
       OptionList.length &&
-      resultList.length
+      showList === false
     ) {
+      this.setState({ showList: false });
+    } else if (
+      (hideList === false || hideList === true) &&
+      OptionList.length &&
+      showList === true
+    ) {
+      this.setState({ showList: true });
+    } else if (hideList === false && OptionList.length && resultList.length) {
       this.setState({ showList: true });
     }
   };
