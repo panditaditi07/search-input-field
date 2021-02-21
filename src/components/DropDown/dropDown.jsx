@@ -136,10 +136,7 @@ class DropDown extends Component {
       this.toggle();
 
       this.setState({ hideList: true });
-    } else {
-      this.setState({ hideList: !this.state.hideList });
     }
-
     if (multipleSelect && OptionList.length) {
       getList(OptionList);
     }
@@ -151,6 +148,7 @@ class DropDown extends Component {
   toggle = () => {
     this.setState({ showList: !this.state.showList });
   };
+
   /**
    * @param {option}
    * checks wheather the option is selected
@@ -173,19 +171,18 @@ class DropDown extends Component {
    * toggles the dropdown menu
    */
 
-  noResults = () => {
-    if (this.state.resultList === ["No results"]) return true;
-    else {
-      return false;
-    }
-  };
-
   DropDownToggle = () => {
-    const { OptionList } = this.state;
+    const { OptionList, resultList } = this.state;
     if (!OptionList.length) {
       this.toggle();
-    } else if (this.state.hideList && OptionList.length) {
+    } else if (this.state.hideList === true && OptionList.length) {
       this.setState({ showList: false });
+    } else if (
+      this.state.hideList === false &&
+      OptionList.length &&
+      resultList.length
+    ) {
+      this.setState({ showList: true });
     }
   };
   /**
@@ -196,7 +193,7 @@ class DropDown extends Component {
     const result = this.state.resultList.some(
       (options) => this.state.searchInput !== options[showKey]
     );
-
+    console.log(result);
     if (result === false && !this.state.searchInput.length) {
       return true;
     }
@@ -304,6 +301,7 @@ class DropDown extends Component {
                   onChange={this.handleChange}
                 />
               </div>
+
               {this.noResults() ? (
                 <div className={styles["allListDiv"]}>
                   {multipleSelect && this.isAllSelected() ? (
