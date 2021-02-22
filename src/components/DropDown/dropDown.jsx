@@ -18,7 +18,7 @@ class DropDown extends Component {
     OptionList: [],
     showList: false,
     selectAll: false,
-    hideList: false,
+
     searchInput: "",
   };
 
@@ -133,8 +133,6 @@ class DropDown extends Component {
       !event.currentTarget.contains(event.relatedTarget)
     ) {
       this.toggle();
-
-      this.setState({ hideList: !this.state.hideList });
     }
 
     if (multipleSelect && OptionList.length) {
@@ -143,7 +141,7 @@ class DropDown extends Component {
   };
 
   /**
-   * arrow angle is changed
+   * to toggle arrow angle
    */
   toggle = () => {
     this.setState({ showList: !this.state.showList });
@@ -172,27 +170,20 @@ class DropDown extends Component {
    */
 
   DropDownToggle = () => {
-    const { OptionList, resultList, hideList, showList } = this.state;
+    const { OptionList, resultList, showList } = this.state;
     this.toggle();
 
-    if (
-      (hideList === true || hideList === false) &&
-      OptionList.length &&
-      showList === false
-    ) {
+    if (OptionList.length && showList === false) {
       this.setState({ showList: false });
-    } else if (
-      (hideList === false || hideList === true) &&
-      OptionList.length &&
-      showList === true
-    ) {
+    } else if (OptionList.length && showList === true) {
       this.setState({ showList: true });
-    } else if (hideList === false && OptionList.length && resultList.length) {
+    } else if (OptionList.length && resultList.length && showList === true) {
       this.setState({ showList: true });
     }
   };
   /**
-   * checks for no result
+   * checks for searched value and return no result if
+   * not present.
    */
   noResults = () => {
     const { showKey } = this.props;
@@ -292,12 +283,7 @@ class DropDown extends Component {
               className={`${styles["dropdownlist"]}`}
               onBlur={this.hideList}
             >
-              <div
-                id="searchInput"
-                className={styles["searchBar-div"]}
-                onFocus={this.onSearchFocus}
-                onBlur={this.onSearchBlur}
-              >
+              <div id="searchInput" className={styles["searchBar-div"]}>
                 <SearchBox
                   data={data}
                   result={this.getResult}
@@ -398,9 +384,12 @@ DropDown.propTypes = {
    */
   searchkeys: propTypes.arrayOf(propTypes.string.isRequired),
   /**
-   * will give the result
+   * will give the selected options
    */
   getList: propTypes.func.isRequired,
+  /**
+   * must be boolean for multi-select
+   */
   multipleSelect: propTypes.bool,
 };
 

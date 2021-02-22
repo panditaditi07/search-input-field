@@ -62,6 +62,7 @@
       color: black;
       border: 2px solid grey;
       border-radius: 5px;
+      user-select: none;
     }
   }
 }
@@ -139,5 +140,8 @@
   background: #d1d1d1;
 }
 .removeIcon :hover {
+  color: #3483eb;
+}
+.removeOption:hover {
   color: #3483eb;
 }
