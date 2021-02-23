@@ -132,7 +132,7 @@ class DropDown extends Component {
       event.currentTarget.id === "dropdown-div" &&
       !event.currentTarget.contains(event.relatedTarget)
     ) {
-      this.toggle();
+      this.setState({ showList: true });
     }
 
     if (multipleSelect && OptionList.length) {
@@ -169,16 +169,13 @@ class DropDown extends Component {
    * toggles the dropdown menu
    */
 
-  DropDownToggle = () => {
-    const { OptionList, resultList, showList } = this.state;
-    this.toggle();
-
-    if (OptionList.length && showList === false) {
-      this.setState({ showList: false });
-    } else if (OptionList.length && showList === true) {
-      this.setState({ showList: true });
-    } else if (OptionList.length && resultList.length && showList === true) {
-      this.setState({ showList: true });
+  DropDownToggle = (event) => {
+    event.preventDefault();
+    if (event.target === event.currentTarget) {
+      this.setState({ showList: !this.state.showList });
+      return;
+    } else {
+      return;
     }
   };
   /**
@@ -223,6 +220,7 @@ class DropDown extends Component {
           onBlur={this.hideList}
           className={styles["dropdown-div"]}
           data-test="DropdownComponent"
+          data-id="main-div"
         >
           <div
             onClick={this.DropDownToggle}

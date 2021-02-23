@@ -263,3 +263,18 @@
   })}
 </div>; */
 }
+
+
+
+// DropDownToggle = () => {
+  //   const { OptionList, resultList, showList } = this.state;
+  //   this.toggle();
+
+  //   if (OptionList.length && showList === false) {
+  //     this.setState({ showList: false });
+  //   } else if (OptionList.length && showList === true) {
+  //     this.setState({ showList: true });
+  //   } else if (OptionList.length && resultList.length && showList === true) {
+  //     this.setState({ showList: true });
+  //   }
+  // };
