@@ -33,11 +33,6 @@ class DropDown extends Component {
   getResult = (result) => {
     this.setState({ resultList: [...result] });
   };
-  /**
-   *
-   * @param {event} event
-   * focuses on searchBar
-   */
 
   /**
    * removes all selected Options
@@ -132,7 +127,7 @@ class DropDown extends Component {
       event.currentTarget.id === "dropdown-div" &&
       !event.currentTarget.contains(event.relatedTarget)
     ) {
-      this.setState({ showList: true });
+      this.setState({ showList: false });
     }
 
     if (multipleSelect && OptionList.length) {
@@ -170,7 +165,6 @@ class DropDown extends Component {
    */
 
   DropDownToggle = (event) => {
-    event.preventDefault();
     if (event.target === event.currentTarget) {
       this.setState({ showList: !this.state.showList });
       return;
@@ -187,7 +181,7 @@ class DropDown extends Component {
     const result = this.state.resultList.some(
       (options) => this.state.searchInput !== options[showKey]
     );
-    console.log(result);
+
     if (result === false && !this.state.searchInput.length) {
       return true;
     }
@@ -201,7 +195,6 @@ class DropDown extends Component {
    * returns dropdown list
    */
   render() {
-    console.log(this.state.resultList);
     const { showList, resultList, OptionList, selectAll } = this.state;
     const {
       placeholder,
