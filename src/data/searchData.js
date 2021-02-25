@@ -6,7 +6,7 @@ export const searchData = [
   },
   {
     id: "2",
-    name: "Abhay",
+    name: "Venu",
     description: "Some description",
   },
   {

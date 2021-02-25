@@ -49,18 +49,35 @@ class DropDown extends Component {
    * @param {option} option
    * removes selected options
    */
+  // removeOption = (option) => {
+  //   const { OptionList } = this.state;
+  //   const { showKey, getList } = this.props;
+  //   let result = OptionList.filter((selectedoption) => {
+  //     return selectedoption[showKey] !== option[showKey];
+  //   });
+
+  //   this.setState({ OptionList: result }, () => {
+  //     getList(this.state.OptionList);
+  //   });
+
+  //   if (OptionList.length === 0 || OptionList.length - 1) {
+  //     this.setState({ selectAll: false });
+  //   }
+  // };
   removeOption = (option) => {
     const { OptionList } = this.state;
     const { showKey, getList } = this.props;
-    let result = OptionList.filter((selectedoption) => {
-      return selectedoption[showKey] !== option[showKey];
+
+    let getIndex = OptionList.findIndex((selectedoption) => {
+      return selectedoption[showKey] === option[showKey];
     });
 
-    this.setState({ OptionList: result }, () => {
+    OptionList.splice(getIndex, 1);
+    this.setState({ OptionList: OptionList }, () => {
       getList(this.state.OptionList);
     });
 
-    if (result.length === 0 || result.length - 1) {
+    if (OptionList.length === 0 || OptionList.length - 1) {
       this.setState({ selectAll: false });
     }
   };
@@ -87,11 +104,12 @@ class DropDown extends Component {
     const result = data.map((options) => {
       return options;
     });
+
     this.setState({ OptionList: result, selectAll: !selectAll }, () => {
-      if (selectAll === true) {
-        this.setState({ OptionList: [] });
-      } else {
+      if (this.state.selectAll) {
         this.setState({ OptionList: result });
+      } else {
+        this.setState({ OptionList: [] });
       }
     });
   };
@@ -103,16 +121,22 @@ class DropDown extends Component {
    */
   addToList = (option) => {
     const { OptionList } = this.state;
-    const { multipleSelect } = this.props;
+    const { multipleSelect, data } = this.props;
     const options = [...OptionList, { ...option }];
-    this.setState({ OptionList: options });
 
     if (!multipleSelect) {
       this.setState({ OptionList: [{ ...option }] });
-
       const { getList } = this.props;
       getList(option);
       this.toggle();
+    } else {
+      this.setState({ OptionList: options }, () => {
+        const { getList } = this.props;
+        getList(OptionList);
+        if (OptionList.length + 1 === data.length) {
+          this.setState({ selectAll: true });
+        }
+      });
     }
   };
   /**
@@ -125,11 +149,11 @@ class DropDown extends Component {
     const { OptionList } = this.state;
     if (
       event.currentTarget.id === "dropdown-div" &&
-      !event.currentTarget.contains(event.relatedTarget)
+      !event.currentTarget.contains(event.relatedTarget) &&
+      event.target === event.currentTarget
     ) {
       this.setState({ showList: false });
     }
-
     if (multipleSelect && OptionList.length) {
       getList(OptionList);
     }
@@ -176,21 +200,15 @@ class DropDown extends Component {
    * checks for searched value and return no result if
    * not present.
    */
-  noResults = () => {
-    const { showKey } = this.props;
-    const result = this.state.resultList.some(
-      (options) => this.state.searchInput !== options[showKey]
-    );
 
-    if (result === false && !this.state.searchInput.length) {
-      return true;
-    }
-    if (result === true) {
-      return true;
-    } else if (result === false) {
+  isResult = () => {
+    if (!this.state.resultList.length && this.state.searchInput.length) {
       return false;
+    } else {
+      return true;
     }
   };
+
   /**
    * returns dropdown list
    */
@@ -214,8 +232,10 @@ class DropDown extends Component {
           className={styles["dropdown-div"]}
           data-test="DropdownComponent"
           data-id="main-div"
+          onClick={this.windowFocus}
         >
           <div
+            data-test="dropdown-button"
             onClick={this.DropDownToggle}
             className={`${styles["dropdown-button"]} ${
               styles[OptionList.length > 10 ? "adjustheight" : ""]
@@ -285,27 +305,24 @@ class DropDown extends Component {
                 />
               </div>
 
-              {this.noResults() ? (
+              {this.isResult() ? (
                 <div className={styles["allListDiv"]}>
-                  {multipleSelect && this.isAllSelected() ? (
+                  {multipleSelect && this.isAllSelected() && (
                     <div
                       className={styles["selectAll"]}
                       onClick={this.selectAllData}
+                      data-test="selectAllData"
                     >
-                      {multipleSelect ? (
+                      {multipleSelect && (
                         <FontAwesomeIcon
                           className={styles["check-icon"]}
                           color="#3483eb"
                           size="2x"
                           icon={selectAll ? faCheckSquare : faSquare}
                         />
-                      ) : (
-                        <></>
                       )}
                       <p className={styles["selectAll-heading"]}>Select All</p>
                     </div>
-                  ) : (
-                    <></>
                   )}
 
                   {list.map((option, i) => {
@@ -318,7 +335,7 @@ class DropDown extends Component {
                         }}
                         data-test="list"
                       >
-                        {multipleSelect ? (
+                        {multipleSelect && (
                           <FontAwesomeIcon
                             color="#3483eb"
                             size="2x"
@@ -326,8 +343,6 @@ class DropDown extends Component {
                               this.isSelected(option) ? faCheckSquare : faSquare
                             }
                           />
-                        ) : (
-                          <></>
                         )}
                         <button
                           className={`${styles["list-button"]} ${

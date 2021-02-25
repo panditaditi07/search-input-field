@@ -30,6 +30,13 @@ const simulateFuncList = (component) => {
     .simulate("click");
   return simulatefunc;
 };
+const simulateSelectAllData = (component) => {
+  const simulatefunc = component
+    .find(`[data-test='${"selectAllData"}']`)
+
+    .simulate("click");
+  return simulatefunc;
+};
 describe("Dropdown Component", () => {
   const properties = {
     data: [
@@ -42,6 +49,9 @@ describe("Dropdown Component", () => {
       {
         name: "Venu",
       },
+      {
+        name: "Clive",
+      },
     ],
     searchList: { searchkeys: ["name"] },
     showKey: "name",
@@ -52,6 +62,7 @@ describe("Dropdown Component", () => {
       },
     ],
 
+    multipleSelect: true,
     getList: jest.fn(),
   };
   it("should render without errors", () => {
@@ -94,12 +105,61 @@ describe("Dropdown Component", () => {
     expect(component.instance().props.icon["iconName"]).toBe("angle-down");
   });
   it("should check for selected className", () => {
-    const component = shallow(<DropDown {...properties} />);
+    const properties1 = { ...properties, multipleSelect: false };
+    const component = shallow(<DropDown {...properties1} />);
     simulateFuncIcon(component);
     simulateFuncList(component);
     simulateFuncIcon(component);
     expect(
       component.find("button").first().hasClass("list-button selected")
+    ).toEqual(true);
+  });
+  it("should check for classname adjust height", () => {
+    const properties1 = {
+      ...properties,
+      data: [
+        {
+          name: "Aditi",
+        },
+        {
+          name: "Talib",
+        },
+        {
+          name: "Venu",
+        },
+        {
+          name: "Clive",
+        },
+        {
+          name: "Naruto",
+        },
+        {
+          name: "Sasuke",
+        },
+        {
+          name: "Kakashi",
+        },
+        {
+          name: "Jiraya",
+        },
+        {
+          name: "Hinata",
+        },
+        {
+          name: "Itachi",
+        },
+        {
+          name: "Tsunade",
+        },
+      ],
+    };
+    const component = shallow(<DropDown {...properties1} />);
+    simulateFuncIcon(component);
+    simulateSelectAllData(component);
+    expect(
+      component
+        .find(`[data-test='${"dropdown-button"}']`)
+        .hasClass("adjustheight")
     ).toEqual(true);
   });
 });
