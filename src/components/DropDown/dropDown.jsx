@@ -232,7 +232,6 @@ class DropDown extends Component {
           className={styles["dropdown-div"]}
           data-test="DropdownComponent"
           data-id="main-div"
-          onClick={this.windowFocus}
         >
           <div
             data-test="dropdown-button"
