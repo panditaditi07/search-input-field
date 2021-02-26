@@ -18,7 +18,6 @@ class DropDown extends Component {
     OptionList: [],
     showList: false,
     selectAll: false,
-
     searchInput: "",
   };
 
@@ -149,13 +148,9 @@ class DropDown extends Component {
     const { OptionList } = this.state;
     if (
       event.currentTarget.id === "dropdown-div" &&
-      !event.currentTarget.contains(event.relatedTarget) &&
-      event.target === event.currentTarget
+      !event.currentTarget.contains(event.relatedTarget)
     ) {
       this.setState({ showList: false });
-    }
-    if (multipleSelect && OptionList.length) {
-      getList(OptionList);
     }
   };
 
@@ -182,7 +177,9 @@ class DropDown extends Component {
    */
   isAllSelected = () => {
     if (this.state.resultList.length) return false;
-    return true;
+    else {
+      return true;
+    }
   };
   /**
    * toggles the dropdown menu
@@ -246,11 +243,16 @@ class DropDown extends Component {
                   {multipleSelect ? (
                     OptionList.map((optionSelected, i) => {
                       return (
-                        <div className={styles["multiSelectOption"]} key={i}>
+                        <div
+                          className={styles["multiSelectOption"]}
+                          key={i}
+                          data-test="multi-select"
+                        >
                           {optionSelected[showKey].length > 10
                             ? optionSelected[showKey].substring(0, 10) + "..."
                             : optionSelected[showKey]}
                           <FontAwesomeIcon
+                            data-test="remove-option"
                             onClick={() => {
                               this.removeOption(optionSelected);
                             }}
@@ -304,8 +306,8 @@ class DropDown extends Component {
                 />
               </div>
 
-              {this.isResult() ? (
-                <div className={styles["allListDiv"]}>
+              {this.isResult() && (
+                <div className={styles["allListDiv"]} data-test="ifResult">
                   {multipleSelect && this.isAllSelected() && (
                     <div
                       className={styles["selectAll"]}
@@ -314,6 +316,7 @@ class DropDown extends Component {
                     >
                       {multipleSelect && (
                         <FontAwesomeIcon
+                          data-test="check-box"
                           className={styles["check-icon"]}
                           color="#3483eb"
                           size="2x"
@@ -354,8 +357,9 @@ class DropDown extends Component {
                     );
                   })}
                 </div>
-              ) : (
-                <div className={styles["no-result"]}>
+              )}
+              {!this.isResult() && (
+                <div className={styles["no-result"]} data-test="no-result">
                   <i>No results</i>
                 </div>
               )}
