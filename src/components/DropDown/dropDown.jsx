@@ -77,9 +77,8 @@ class DropDown extends Component {
       getList(this.state.OptionList);
     });
 
-    if (OptionList.length === 0 || OptionList.length - 1) {
-      this.setState({ selectAll: false });
-    }
+    if (OptionList.length === 0 || OptionList.length - 1)
+      return this.setState({ selectAll: false });
   };
   /**
    *
@@ -305,6 +304,7 @@ class DropDown extends Component {
                   placeholder={searchList.placeholder}
                   className={styles["searchbar"]}
                   onChange={this.handleChange}
+                  data-test="searchBox"
                 />
               </div>
 

@@ -315,7 +315,6 @@ describe("Multiple Select DropDown Component", () => {
   it("should remove all options and className", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
-
     simulateSelectAllData(component);
     expect(
       component
@@ -325,14 +324,9 @@ describe("Multiple Select DropDown Component", () => {
     component.find(`[data-test='${"removeAllOptions"}']`).simulate("click");
     expect(component.state("OptionList").length).toBe(0);
   });
-  // it("should remove the option from dropdown", () => {
-  //   const component = shallow(<DropDown {...properties} />);
-  //   DropdownToggle(component);
-  //   simulateFuncList(component);
-  //   component
-  //     .find(`[data-test='${"remove-option"}']`)
-  //     .first()
-  //     .simulate("click");
-  //   expect(component.state("OptionList").length).toBe(0);
-  // });
+  it("should check for searchInput", () => {
+    const component = shallow(<DropDown {...properties} />);
+    component.instance().handleChange("Aditi");
+    expect(component.state("searchInput")).toEqual("Aditi");
+  });
 });
