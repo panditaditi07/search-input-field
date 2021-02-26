@@ -109,6 +109,8 @@ class DropDown extends Component {
     this.setState({ OptionList: result, selectAll: !selectAll }, () => {
       if (this.state.selectAll) {
         this.setState({ OptionList: result });
+      }else{
+        this.setState({ OptionList: [] });
       }
     });
   };
