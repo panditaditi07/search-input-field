@@ -38,9 +38,6 @@ class DropDown extends Component {
    */
   removeAllOption = () => {
     this.setState({ OptionList: [], selectAll: false });
-    if (this.state.OptionList.length && this.state.hideList === true) {
-      this.setState({ showList: true });
-    }
   };
 
   /**
@@ -48,21 +45,25 @@ class DropDown extends Component {
    * @param {option} option
    * removes selected options
    */
+
   // removeOption = (option) => {
   //   const { OptionList } = this.state;
   //   const { showKey, getList } = this.props;
-  //   let result = OptionList.filter((selectedoption) => {
-  //     return selectedoption[showKey] !== option[showKey];
+
+  //   let getIndex = OptionList.findIndex((selectedoption) => {
+  //     return selectedoption[showKey] === option[showKey];
   //   });
 
-  //   this.setState({ OptionList: result }, () => {
-  //     getList(this.state.OptionList);
-  //   });
-
+  //   OptionList.splice(getIndex, 1);
   //   if (OptionList.length === 0 || OptionList.length - 1) {
   //     this.setState({ selectAll: false });
+  //   } else {
+  //     this.setState({ OptionList: OptionList }, () => {
+  //       getList(this.state.OptionList);
+  //     });
   //   }
   // };
+
   removeOption = (option) => {
     const { OptionList } = this.state;
     const { showKey, getList } = this.props;
@@ -273,6 +274,7 @@ class DropDown extends Component {
             <div className={styles["icons"]}>
               {OptionList.length ? (
                 <FontAwesomeIcon
+                  data-test="removeAllOptions"
                   className={styles["removeIcon"]}
                   onClick={this.removeAllOption}
                   icon={faTimes}

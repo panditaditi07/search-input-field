@@ -312,4 +312,27 @@ describe("Multiple Select DropDown Component", () => {
     simulateFuncList(component);
     expect(component.state("OptionList").length).toBe(3);
   });
+  it("should remove all options and className", () => {
+    const component = shallow(<DropDown {...properties} />);
+    DropdownToggle(component);
+
+    simulateSelectAllData(component);
+    expect(
+      component
+        .find(`[data-test='${"removeAllOptions"}']`)
+        .hasClass("removeIcon")
+    ).toEqual(true);
+    component.find(`[data-test='${"removeAllOptions"}']`).simulate("click");
+    expect(component.state("OptionList").length).toBe(0);
+  });
+  // it("should remove the option from dropdown", () => {
+  //   const component = shallow(<DropDown {...properties} />);
+  //   DropdownToggle(component);
+  //   simulateFuncList(component);
+  //   component
+  //     .find(`[data-test='${"remove-option"}']`)
+  //     .first()
+  //     .simulate("click");
+  //   expect(component.state("OptionList").length).toBe(0);
+  // });
 });
