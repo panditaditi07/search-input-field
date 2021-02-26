@@ -78,6 +78,8 @@ class DropDown extends Component {
 
     if (OptionList.length === 0 || OptionList.length - 1) {
       this.setState({ selectAll: false });
+    } else {
+      this.setState({ selectAll: true });
     }
   };
   /**
@@ -107,8 +109,6 @@ class DropDown extends Component {
     this.setState({ OptionList: result, selectAll: !selectAll }, () => {
       if (this.state.selectAll) {
         this.setState({ OptionList: result });
-      } else {
-        this.setState({ OptionList: [] });
       }
     });
   };
