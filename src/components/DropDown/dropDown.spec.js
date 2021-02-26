@@ -305,11 +305,11 @@ describe("Multiple Select DropDown Component", () => {
 
     expect(component.state("showList")).toBe(true);
   });
-  // it("should check for all selected to be deselected", () => {
-  //   const component = shallow(<DropDown {...properties} />);
-  //   DropdownToggle(component);
-  //   simulateSelectAllData(component);
-  //   simulateFuncList(component);
-  //   expect(component.state("OptionList").length).toBe(3);
-  // });
+  it("should check for all selected options in that one to be deselected", () => {
+    const component = shallow(<DropDown {...properties} />);
+    DropdownToggle(component);
+    simulateSelectAllData(component);
+    simulateFuncList(component);
+    expect(component.state("OptionList").length).toBe(3);
+  });
 });
