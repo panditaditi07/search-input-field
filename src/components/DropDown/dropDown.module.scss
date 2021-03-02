@@ -8,7 +8,7 @@
   outline: none !important;
 }
 .adjustheight {
-  height: 100px;
+  max-height: 100px;
 }
 .dropdownlist {
   display: flex;
@@ -93,6 +93,7 @@
   align-items: center;
   flex-direction: row;
 }
+
 .lists {
   background-color: rgb(255, 255, 255);
   width: 100%;

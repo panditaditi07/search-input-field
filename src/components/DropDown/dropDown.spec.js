@@ -10,6 +10,7 @@ import {
   faCheckSquare,
   faSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import SearchBox from "../SearchBox/searchBox";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -106,15 +107,17 @@ describe("Dropdown Component", () => {
     expect(component.state("OptionList").length).toEqual(1);
   });
   it("should check for icon AngleUp", () => {
-    const properties1 = { ...properties, icon: faAngleUp };
-    const component = shallow(<DropDown {...properties1} />);
+    const component = shallow(<DropDown {...properties} />);
     simulateFuncIcon(component);
-    expect(component.instance().props.icon["iconName"]).toBe("angle-up");
+    expect(component.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+      "angle-up"
+    );
   });
   it("should check for class AngleDown", () => {
-    const properties1 = { ...properties, icon: faAngleDown };
-    const component = shallow(<DropDown {...properties1} />);
-    expect(component.instance().props.icon["iconName"]).toBe("angle-down");
+    const component = shallow(<DropDown {...properties} />);
+    expect(component.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+      "angle-down"
+    );
   });
   it("should check for selected className", () => {
     const properties1 = { ...properties, multipleSelect: false };
@@ -122,63 +125,11 @@ describe("Dropdown Component", () => {
     simulateFuncIcon(component);
     simulateFuncList(component);
     simulateFuncIcon(component);
-    expect(
-      component.find("button").first().hasClass("list-button selected")
-    ).toEqual(true);
+    expect(component.find("button").first().hasClass("selected")).toEqual(true);
   });
 });
 
 describe("Multiple Select DropDown Component", () => {
-  it("should check for classname adjust height", () => {
-    const properties1 = {
-      ...properties,
-      data: [
-        {
-          name: "Aditi",
-        },
-        {
-          name: "Talib",
-        },
-        {
-          name: "Venu",
-        },
-        {
-          name: "Clive",
-        },
-        {
-          name: "Naruto",
-        },
-        {
-          name: "Sasuke",
-        },
-        {
-          name: "Itachi",
-        },
-        {
-          name: "Kakashi",
-        },
-        {
-          name: "Jiraya",
-        },
-        {
-          name: "Hinata",
-        },
-
-        {
-          name: "Tsunade",
-        },
-      ],
-    };
-    const component = shallow(<DropDown {...properties1} />);
-    simulateFuncIcon(component);
-    simulateSelectAllData(component);
-    expect(
-      component
-        .find(`[data-test='${"dropdown-button"}']`)
-        .hasClass("adjustheight")
-    ).toEqual(true);
-  });
-
   it("should toggle the dropdown", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
@@ -191,6 +142,7 @@ describe("Multiple Select DropDown Component", () => {
       .simulate("click", { target: {} });
     expect(component.state("showList")).toEqual(false);
   });
+
   it("should check for greater than 10 substring", () => {
     const properties1 = {
       ...properties,
@@ -236,41 +188,52 @@ describe("Multiple Select DropDown Component", () => {
     expect(component.state("OptionList").length).toBe(3);
   });
   it("should deselect option and check for square icon ", () => {
-    const properties1 = { ...properties, icon: faSquare };
-    const component = shallow(<DropDown {...properties1} />);
+    const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
     simulateFuncList(component);
     simulateFuncList(component);
     expect(component.state("OptionList").length).toEqual(0);
-    expect(component.instance().props.icon["iconName"]).toBe("square");
+    const wrapper = component.find(`[data-test='${"list"}']`);
+    expect(wrapper.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+      "square"
+    );
   });
-  it("should select the option and check for check square icon ", () => {
-    const properties1 = { ...properties, icon: faCheckSquare };
-    const component = shallow(<DropDown {...properties1} />);
+  it("should select the option ,check for selected className and check for check-square icon ", () => {
+    const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
     simulateFuncList(component);
     expect(component.state("OptionList").length).toEqual(1);
-    expect(component.instance().props.icon["iconName"]).toBe("check-square");
+    expect(component.find("button").first().hasClass("selected")).toEqual(true);
+    const wrapper = component.find(`[data-test='${"list"}']`);
+    expect(wrapper.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+      "check-square"
+    );
   });
   it("should check for no options selected and check for square icon", () => {
-    const properties1 = { ...properties, icon: faSquare };
+    const properties1 = { ...properties };
     const component = shallow(<DropDown {...properties1} />);
     DropdownToggle(component);
     simulateSelectAllData(component);
     simulateSelectAllData(component);
+    const wrapper = component.find(`[data-test='${"selectAllData"}']`);
     expect(component.state("OptionList").length).toEqual(0);
-    expect(component.instance().props.icon["iconName"]).toBe("square");
+    expect(wrapper.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+      "square"
+    );
   });
-  it("should check for selectAll option", () => {
-    const properties1 = { ...properties, result: "", icon: faSquare };
+  it("should check for selectAll option, className and check for square icon", () => {
+    const properties1 = { ...properties, result: "" };
     const component = shallow(<DropDown {...properties1} />);
     DropdownToggle(component);
     expect(component.state("resultList").length).toEqual(0);
     expect(component.instance().isAllSelected()).toBe(true);
-    expect(component.instance().props.icon["iconName"]).toBe("square");
     expect(
       component.find(`[data-test='${"selectAllData"}']`).hasClass("selectAll")
     ).toBe(true);
+    const wrapper = component.find(`[data-test='${"selectAllData"}']`);
+    expect(wrapper.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+      "square"
+    );
   });
   it("should check for no selectAll option when using search Bar", () => {
     const component = shallow(<DropDown {...properties} />);
@@ -305,14 +268,18 @@ describe("Multiple Select DropDown Component", () => {
 
     expect(component.state("showList")).toBe(true);
   });
-  it("should check for all selected options in that one to be deselected", () => {
+  it("should check for all selected options in that one to be deselected and check for square icon", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
     simulateSelectAllData(component);
     simulateFuncList(component);
     expect(component.state("OptionList").length).toBe(3);
+    const wrapper = component.find(`[data-test='${"selectAllData"}']`);
+    expect(wrapper.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+      "square"
+    );
   });
-  it("should remove all options and className", () => {
+  it("should remove all options and check for square icon", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
     simulateSelectAllData(component);
@@ -323,10 +290,19 @@ describe("Multiple Select DropDown Component", () => {
     ).toEqual(true);
     component.find(`[data-test='${"removeAllOptions"}']`).simulate("click");
     expect(component.state("OptionList").length).toBe(0);
+    const wrapper = component.find(`[data-test='${"selectAllData"}']`);
+    expect(wrapper.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+      "square"
+    );
   });
-  it("should check for searchInput", () => {
+  it("should check for searchInput value", () => {
     const component = shallow(<DropDown {...properties} />);
     component.instance().handleChange("Aditi");
     expect(component.state("searchInput")).toEqual("Aditi");
+  });
+  it("should check for searchBar", () => {
+    const component = shallow(<DropDown {...properties} />);
+    DropdownToggle(component);
+    expect(component.find(SearchBox).length).toBe(1);
   });
 });

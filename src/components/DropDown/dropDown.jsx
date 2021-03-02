@@ -21,8 +21,8 @@ class DropDown extends Component {
     searchInput: "",
   };
 
-  handleChange = (onChange) => {
-    this.setState({ searchInput: onChange });
+  handleChange = (searchInputValue) => {
+    this.setState({ searchInput: searchInputValue });
   };
   /**
    *
@@ -144,8 +144,8 @@ class DropDown extends Component {
    * it hides the list when out of Focus
    */
   hideList = (event) => {
-    const { multipleSelect, getList } = this.props;
-    const { OptionList } = this.state;
+    // const { multipleSelect, getList } = this.props;
+    // const { OptionList } = this.state;
     if (
       event.currentTarget.id === "dropdown-div" &&
       !event.currentTarget.contains(event.relatedTarget)
@@ -233,9 +233,8 @@ class DropDown extends Component {
           <div
             data-test="dropdown-button"
             onClick={this.DropDownToggle}
-            className={`${styles["dropdown-button"]} ${
-              styles[OptionList.length > 10 ? "adjustheight" : ""]
-            }`}
+            className={`${styles["dropdown-button"]}
+             ${styles["adjustheight"]}`}
           >
             <div className={styles["button-heading"]}>
               {OptionList.length ? (
@@ -289,7 +288,6 @@ class DropDown extends Component {
               />
             </div>
           </div>
-
           {showList && (
             <div
               id="lists"
@@ -304,7 +302,6 @@ class DropDown extends Component {
                   placeholder={searchList.placeholder}
                   className={styles["searchbar"]}
                   onChange={this.handleChange}
-                  data-test="searchBox"
                 />
               </div>
 
