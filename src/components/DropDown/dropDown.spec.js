@@ -158,20 +158,18 @@ describe("Multiple Select DropDown Component", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
     expect(component.instance().isResult()).toBe(true);
-
     expect(
       component.find(`[data-test='${"ifResult"}']`).hasClass("allListDiv")
     ).toEqual(true);
   });
   it("should check for no results and its className", () => {
-    const properties1 = {
-      ...properties,
-      data: [{ name: "Naruto" }],
-    };
-    const component = shallow(<DropDown {...properties1} />);
+    const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
     expect(
-      component.setState({ searchInput: "Sasuke" }).instance().isResult()
+      component
+        .setState({ searchInput: "Sasuke", resultList: [] })
+        .instance()
+        .isResult()
     ).toBe(false);
     expect(
       component.find(`[data-test='${"no-result"}']`).hasClass("no-result")
@@ -194,7 +192,7 @@ describe("Multiple Select DropDown Component", () => {
     simulateFuncList(component);
     expect(component.state("OptionList").length).toEqual(0);
     const wrapper = component.find(`[data-test='${"list"}']`);
-    expect(wrapper.find(FontAwesomeIcon).first().props().icon.iconName).toBe(
+    expect(wrapper.first().find(FontAwesomeIcon).props().icon.iconName).toBe(
       "square"
     );
   });
@@ -222,7 +220,7 @@ describe("Multiple Select DropDown Component", () => {
     );
   });
   it("should check for selectAll option, className and check for square icon", () => {
-    const properties1 = { ...properties, result: "" };
+    const properties1 = { ...properties, data: [] };
     const component = shallow(<DropDown {...properties1} />);
     DropdownToggle(component);
     expect(component.state("resultList").length).toEqual(0);
@@ -238,8 +236,9 @@ describe("Multiple Select DropDown Component", () => {
   it("should check for no selectAll option when using search Bar", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
-    component.instance().getResult(properties.result);
-    expect(component.state("resultList").length).toEqual(1);
+
+    component.instance().handleChange(properties.result);
+    expect(component.state("searchInput").length).toEqual(1);
     expect(component.instance().isAllSelected()).toBe(false);
   });
   it("should close dropdown onblur", () => {

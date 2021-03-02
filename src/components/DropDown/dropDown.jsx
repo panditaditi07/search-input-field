@@ -144,13 +144,17 @@ class DropDown extends Component {
    * it hides the list when out of Focus
    */
   hideList = (event) => {
-    // const { multipleSelect, getList } = this.props;
-    // const { OptionList } = this.state;
+    const { data } = this.props;
+
     if (
       event.currentTarget.id === "dropdown-div" &&
       !event.currentTarget.contains(event.relatedTarget)
     ) {
-      this.setState({ showList: false });
+      this.setState({
+        showList: false,
+        searchInput: "",
+        resultList: [...data],
+      });
     }
   };
 
@@ -158,7 +162,12 @@ class DropDown extends Component {
    * to toggle arrow angle
    */
   toggle = () => {
-    this.setState({ showList: !this.state.showList });
+    const { data } = this.props;
+    this.setState({
+      showList: !this.state.showList,
+      searchInput: "",
+      resultList: [...data],
+    });
   };
 
   /**
@@ -176,7 +185,7 @@ class DropDown extends Component {
    * returns true else true false
    */
   isAllSelected = () => {
-    if (this.state.resultList.length) return false;
+    if (this.state.searchInput.length) return false;
     else {
       return true;
     }
@@ -186,9 +195,13 @@ class DropDown extends Component {
    */
 
   DropDownToggle = (event) => {
+    const { data } = this.props;
     if (event.target === event.currentTarget) {
-      this.setState({ showList: !this.state.showList });
-      return;
+      this.setState({
+        showList: !this.state.showList,
+        searchInput: "",
+        resultList: [...data],
+      });
     } else {
       return;
     }
