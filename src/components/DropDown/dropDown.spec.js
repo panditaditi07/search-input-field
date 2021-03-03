@@ -157,23 +157,24 @@ describe("Multiple Select DropDown Component", () => {
   it("should check for results and its className", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
-    expect(component.instance().isResult()).toBe(true);
+    component.find(SearchBox).props().onChange("Aditi");
+    component.find(SearchBox).props().result(properties.result);
     expect(
       component.find(`[data-test='${"ifResult"}']`).hasClass("allListDiv")
     ).toEqual(true);
   });
-  it("should check for no results and its className", () => {
+  it("should check for no results , className and text", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
-    expect(
-      component
-        .setState({ searchInput: "Sasuke", resultList: [] })
-        .instance()
-        .isResult()
-    ).toBe(false);
+    component.find(SearchBox).props().onChange("Naruto");
+    component.find(SearchBox).props().result([]);
+    expect(component.instance().isResult()).toBe(false);
     expect(
       component.find(`[data-test='${"no-result"}']`).hasClass("no-result")
     ).toEqual(true);
+    expect(component.find(`[data-test='${"no-result"}']`).text()).toBe(
+      "No results"
+    );
   });
   it("should remove selected option", () => {
     const component = shallow(<DropDown {...properties} />);
@@ -220,10 +221,9 @@ describe("Multiple Select DropDown Component", () => {
     );
   });
   it("should check for selectAll option, className and check for square icon", () => {
-    const properties1 = { ...properties, data: [] };
+    const properties1 = { ...properties };
     const component = shallow(<DropDown {...properties1} />);
     DropdownToggle(component);
-    expect(component.state("resultList").length).toEqual(0);
     expect(component.instance().isAllSelected()).toBe(true);
     expect(
       component.find(`[data-test='${"selectAllData"}']`).hasClass("selectAll")
@@ -236,9 +236,7 @@ describe("Multiple Select DropDown Component", () => {
   it("should check for no selectAll option when using search Bar", () => {
     const component = shallow(<DropDown {...properties} />);
     DropdownToggle(component);
-
-    component.instance().handleChange(properties.result);
-    expect(component.state("searchInput").length).toEqual(1);
+    component.find(SearchBox).props().onChange("Aditi");
     expect(component.instance().isAllSelected()).toBe(false);
   });
   it("should close dropdown onblur", () => {
@@ -296,7 +294,8 @@ describe("Multiple Select DropDown Component", () => {
   });
   it("should check for searchInput value", () => {
     const component = shallow(<DropDown {...properties} />);
-    component.instance().handleChange("Aditi");
+    DropdownToggle(component);
+    component.find(SearchBox).props().onChange("Aditi");
     expect(component.state("searchInput")).toEqual("Aditi");
   });
   it("should check for searchBar", () => {

@@ -16,6 +16,7 @@ class DropDown extends Component {
   state = {
     resultList: [],
     OptionList: [],
+    DataList: [],
     showList: false,
     selectAll: false,
     searchInput: "",
