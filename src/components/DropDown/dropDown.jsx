@@ -50,18 +50,16 @@ class DropDown extends Component {
   // removeOption = (option) => {
   //   const { OptionList } = this.state;
   //   const { showKey, getList } = this.props;
-
-  //   let getIndex = OptionList.findIndex((selectedoption) => {
-  //     return selectedoption[showKey] === option[showKey];
+  //   let result = OptionList.filter((selectedoption) => {
+  //     return selectedoption[showKey] !== option[showKey];
   //   });
 
-  //   OptionList.splice(getIndex, 1);
+  //   this.setState({ OptionList: result }, () => {
+  //     getList(this.state.OptionList);
+  //   });
+
   //   if (OptionList.length === 0 || OptionList.length - 1) {
   //     this.setState({ selectAll: false });
-  //   } else {
-  //     this.setState({ OptionList: OptionList }, () => {
-  //       getList(this.state.OptionList);
-  //     });
   //   }
   // };
 
